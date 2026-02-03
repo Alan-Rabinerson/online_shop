@@ -14,7 +14,7 @@ $api_key = 'e888b918-330e-43c5-a103-111d57a4a28f';
 
 function correctKey() {
     global $conn;
-    $sql = "SELECT * FROM `024_products` WHERE supplier_id = 1 LIMIT 5";
+    $sql = "SELECT product_id, name AS product_name, price as product_price, description as product_description, available_sizes AS product_size, image_url as product_image FROM `024_products` WHERE supplier_id = 1 LIMIT 5";
     //$sql = "SELECT * FROM `024_products` LIMIT 5";
     $result = mysqli_query($conn, $sql);
     if ($result === false) {

@@ -83,7 +83,7 @@
                         // If $payment_methods already provided, prefer it; otherwise try to load from DB
                         if (empty($payment_methods)) {
                             $payment_methods = [];
-                            $res = @mysqli_query($conn, "SELECT * FROM payment_methods");
+                            $res = mysqli_query($conn, "SELECT PM.* FROM 024_payment_method PM JOIN 024_payment_customer PC ON PM.method_id = PC.method_id WHERE PC.customer_id = " . (int)$customer_id);
                             if ($res) {
                                 while ($row = mysqli_fetch_assoc($res)) {
                                     $payment_methods[] = $row;

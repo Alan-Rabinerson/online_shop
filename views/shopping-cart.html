@@ -60,7 +60,12 @@
             <!-- Footer del Carrito -->
             <div class="carrito-footer">
                 <p class="total-amount">Total: 99,97 €</p>
-                <button class="btn-checkout" onclick="">Proceder al pago</button>
+                <form action="../backend/views/checkout.php" method="POST">
+                    <input type="hidden" name="total_items" id="total_items" value="0">
+                    <input type="hidden" name="cart_data" id="cart_data" value="">
+                    <input type="hidden" name="cart_total" id="cart_total" value="0">
+                    <button class="btn-checkout" type="submit">Proceder al pago</button>
+                </form>
             </div>
         </div>
     </main>
@@ -97,4 +102,6 @@
     </footer>
 </body>
 <script src="../JavaScript/menu.js"></script>
+<script src="https://code.jquery.com/ui/1.14.1/jquery-ui.min.js"></script>
+<script src="./JavaScript/create_order.js"></script>
 </html>
