@@ -1,5 +1,5 @@
 <?php include $_SERVER['DOCUMENT_ROOT'].'/student024/Shop/backend/includes/header.php';  
-    include $_SERVER['DOCUMENT_ROOT'].'/student024/Shop/backend/includes/show_success_error_msg.php';// Muestra mensajes de éxito o error
+    ;// Muestra mensajes de éxito o error
     if ($_SESSION['role'] != 'admin') {
         header("Location: /student024/Shop/backend/index.php");
         exit();

@@ -13,7 +13,7 @@
     </form>
     <div class="orders-container mt-4 h-fit w-full flex flex-col items-center justify-center gap-4 justify-self-center" id="orders-container">
         <?php 
-            include $_SERVER['DOCUMENT_ROOT'].'/student024/Shop/backend/includes/show_success_error_msg.php';
+            ;
             $orders_id_list = [];
             $customer_id = $_SESSION['customer_id'];
             require $_SERVER['DOCUMENT_ROOT'].'/student024/Shop/backend/config/db_connect_switch.php';

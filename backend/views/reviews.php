@@ -9,7 +9,7 @@
 <main class="w-screen text-center flex flex-col items-center">
     <h1 class="text-2xl font-bold mb-4">Reviews Management</h1>
     <?php
-        include $_SERVER['DOCUMENT_ROOT'].'/student024/Shop/backend/includes/show_success_error_msg.php';
+        ;
     ?>
     <div class="overflow-x-auto w-11/12">
         <form action="/student024/Shop/backend/db/reviews/update_review_status.php" method="POST" class="mb-4">

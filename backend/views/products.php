@@ -1,6 +1,6 @@
 <?php 
     include $_SERVER['DOCUMENT_ROOT'].'/student024/Shop/backend/includes/header.php'; 
-    include $_SERVER['DOCUMENT_ROOT'].'/student024/Shop/backend/includes/show_success_error_msg.php';// Muestra mensajes de éxito o error
+    ;// Muestra mensajes de éxito o error
 ?>
 <main class="bg-azul-oscuro min-h-screen p-6 text-beige">
     <h1 class="text-2xl font-bold mb-4 text-center text-beige">Productos</h1>

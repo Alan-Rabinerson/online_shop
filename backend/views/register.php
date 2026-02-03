@@ -1,7 +1,7 @@
 <?php 
 include $_SERVER['DOCUMENT_ROOT'].'/student024/Shop/backend/config/db_connect_switch.php';
 require $_SERVER['DOCUMENT_ROOT'].'/student024/Shop/backend/includes/header.php';
-require $_SERVER['DOCUMENT_ROOT'].'/student024/Shop/backend/includes/show_success_error_msg.php';
+require $_SERVER['DOCUMENT_ROOT'].'';
 if (isset($_SESSION['customer_id'])) {
     // User is already logged in, redirect to home page
     header('Location: /student024/Shop/backend/index.php');

@@ -67,6 +67,8 @@
         header('Location: /student024/Shop/backend/index.php');
         exit;
     }
+    // Include helper to display success / error messages in pages
+    require $_SERVER['DOCUMENT_ROOT'] . '/student024/Shop/backend/includes/show_success_error_msg.php';
 ?>
 
 <!DOCTYPE html>
@@ -123,6 +125,7 @@
             </style>
 
         </header>
+        
 
 
 

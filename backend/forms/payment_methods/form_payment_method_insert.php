@@ -1,6 +1,6 @@
 <?php 
     require $_SERVER['DOCUMENT_ROOT'].'/student024/Shop/backend/includes/header.php';
-    require $_SERVER['DOCUMENT_ROOT'].'/student024/Shop/backend/includes/show_success_error_msg.php';
+    require $_SERVER['DOCUMENT_ROOT'].'';
 ?>
 <main>
     <form action="/student024/Shop/backend/db/payment_methods/db_method_insert.php" method="POST">
