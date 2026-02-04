@@ -54,6 +54,7 @@
                                 <ul class="space-y-2">
                                     <?php foreach ($addresses as $addr){ ?>
                                         <li class="p-3 bg-azul-claro rounded flex flex-col md:flex-row md:justify-between">
+                                            
                                              <?php echo htmlspecialchars($addr['address_name'] ?? '', ENT_QUOTES); ?> :
                                             <?php echo htmlspecialchars(($addr['street'] ?? '') . ', ' . ($addr['city'] ?? '') . ' ' . ($addr['zip_code'] ?? ''), ENT_QUOTES); ?>
                                             <div class="mt-2 md:mt-0 flex gap-2 items-center">                                               

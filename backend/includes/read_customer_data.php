@@ -26,7 +26,7 @@
         $payment_methods = []; // re-inicializamos aquí por seguridad            
         $rows = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
-        ?> <script> console.log("Rows found: + <?php echo count($rows); ?> ");</script>
+        ?> <script>// DEBUG console.log("Rows found: + <?php // echo count($rows); ?> ");</script>
         <?php
         if ($result && mysqli_num_rows($result) > 0) {
             

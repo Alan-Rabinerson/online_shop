@@ -1,4 +1,4 @@
-<?php include $_SERVER['DOCUMENT_ROOT'].'/student024/Shop/backend/includes/header.php'; ?> 
+<?php include $_SERVER['DOCUMENT_ROOT'].'/student024/Shop/backend/includes/header.php';  ?>
         <main class="bg-azul-oscuro h-100vh  text-white p-6 flex flex-col items-center">
             <h2 class="mt-4">Página Principal</h2>
             <p class="mt-2">Este es el contenido principal de la página.</p>

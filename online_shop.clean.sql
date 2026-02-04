@@ -1062,8 +1062,12 @@ CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `024_total_income_per_produ
 DROP TABLE IF EXISTS `024_total_money_spent_view`;
 
 DROP VIEW IF EXISTS `024_total_money_spent_view`;
-CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `024_total_money_spent_view`  AS SELECT `024_order_view`.`customer_id` AS `customer_id`, `024_full_name`(`024_order_view`.`first_name`,`024_order_view`.`last_name`) AS `full_name`, sum(`024_order_view`.`total_price`) AS `total_money_spent`, year(`024_order_view`.`order_date`) AS `YEAR` FROM `024_order_view` WHERE year(`024_order_view`.`order_date`) = 2024 GROUP BY `024_order_view`.`customer_id` ORDER BY '' DESC ;
+CREATE VIEW `024_total_money_spent_view`  AS SELECT `024_order_view`.`customer_id` AS `customer_id`, `024_full_name`(`024_order_view`.`first_name`,`024_order_view`.`last_name`) AS `full_name`, sum(`024_order_view`.`total_price`) AS `total_money_spent`, year(`024_order_view`.`order_date`) AS `YEAR` FROM `024_order_view` WHERE year(`024_order_view`.`order_date`) = 2024 GROUP BY `024_order_view`.`customer_id` ORDER BY '' DESC ;
 COMMIT;
+
+
+CREATE VIEW `024_customers_view`  AS SELECT `c`.`customer_id` AS `customer_id`, `c`.`first_name` AS `first_name`, `c`.`last_name` AS `last_name`, `c`.`email` AS `email`, `c`.`username` AS `username`, `c`.`password` AS `password`, `c`.`phone` AS `phone`, `c`.`birth_date` AS `birth_date`, `c`.`type` AS `type`, `a`.`address_name` AS `address_name`, `a`.`address_id` AS `address_id`, `a`.`street` AS `street`, `a`.`city` AS `city`, `a`.`province` AS `province`, `a`.`zip_code` AS `zip_code`, `pm`.`method_id` AS `method_id`, `pm`.`method_name` AS `method_name`, `pm`.`number` AS `number`, `pm`.`expiration_date` AS `expiration_date`, `pm`.`security_code` AS `security_code` FROM ((((`024_customers` `c` join `024_payment_customer` `pc` on(`c`.`customer_id` = `pc`.`customer_id`)) join `024_payment_method` `pm` on(`pc`.`method_id` = `pm`.`method_id`)) join `024_address_customer` `ac` on(`c`.`customer_id` = `ac`.`customer_id`)) join `024_address` `a` on(`ac`.`address_id` = `a`.`address_id`)) ;
+-- --------------------------------------------------------
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
