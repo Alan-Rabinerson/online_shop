@@ -1,6 +1,7 @@
 <?php 
     include $_SERVER['DOCUMENT_ROOT'].'/student024/Shop/backend/config/db_connect_switch.php';   
     include $_SERVER['DOCUMENT_ROOT'].'/student024/Shop/backend/functions/write_logJSON.php';
+    include $_SERVER['DOCUMENT_ROOT'].'/student024/Shop/backend/mail/mail.php';
     $customer_id = $_SESSION['customer_id'];
     $payment_method = $_POST['payment_method'];
     $cart_data = json_decode($_POST['cart_data'], true);
@@ -27,13 +28,16 @@
         $product_id = (int)$item['product_id'];
         $size = $item['size'] ?? '';
         $quantity = (int)$item['quantity'];
-        $price_sql = "SELECT price FROM 024_products WHERE product_id = $product_id LIMIT 1";
+        $price_sql = "SELECT price, supplier_id FROM 024_products WHERE product_id = $product_id LIMIT 1";
         $price_res = mysqli_query($conn, $price_sql);
         $price_row = $price_res ? mysqli_fetch_assoc($price_res) : null;
         $price = $price_row ? (float)$price_row['price'] : 0.0;
+        $supplier_id = $price_row ? (int)$price_row['supplier_id'] : 1; // default to 1 if not found
         $total_price = $price * $quantity;
         $sql = "INSERT INTO `024_orders_table` (`customer_id`, `product_id`, `size`, `quantity`, `price`, `address_id`, `method_id`, `status`, `order_date`) VALUES ($customer_id, $product_id, '$size', $quantity, $total_price, $selected_address_id, $payment_method, 'PROCESSING', NOW())";
-
+        if ($supplier_id != 1) {
+            $sql = "INSERT INTO `024_orders_table` (`customer_id`, `product_id`, `size`, `quantity`, `price`, `address_id`, `method_id`, `status`, `order_date`, `supplier_id`) VALUES ($customer_id, $product_id, '$size', $quantity, $total_price, $selected_address_id, $payment_method, 'PROCESSING', NOW(), $supplier_id)";
+        }
         $query = mysqli_query($conn, $sql);
         if (!$query) {
             header("Location: /student024/Shop/backend/views/my_orders.php?error=Failed+to+place+order+for+product+$product_id");
@@ -68,6 +72,7 @@
             write_logJSON("Order placed by customer " . $_SESSION['customer_id'] ." ". $_SESSION['username'], "insert" ,"order", "changes_log.json");
         }
         header("Location: /student024/Shop/backend/views/my_orders.php?message=Order+placed+successfully");
+        send_email($_SESSION['email'], $_SESSION['username'], 'Order Confirmation - Your Order Has Been Placed', '<h1>Thank you for your order!</h1><p>Your order has been placed successfully and is being processed. We will notify you once it is shipped.</p>', 'Your order has been placed successfully and is being processed. We will notify you once it is shipped.');
     } else {
         header("Location: /student024/Shop/backend/views/my_orders.php?error=Failed+to+clear+shopping+cart");
     }

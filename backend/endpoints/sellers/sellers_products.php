@@ -6,7 +6,7 @@ require $_SERVER['DOCUMENT_ROOT'] . '/student024/Shop/backend/config/db_connect_
 $api_key = 'e888b918-330e-43c5-a103-111d57a4a28f';
 
 // Validate method and presence of api_key
-    if ( isset($_POST['api_key']) && $_POST['api_key'] === $api_key) {
+    if ( isset($_GET['apikey']) && $_GET['apikey'] === $api_key) {
     correctKey();
 } else {
     wrongKey();
@@ -14,7 +14,7 @@ $api_key = 'e888b918-330e-43c5-a103-111d57a4a28f';
 
 function correctKey() {
     global $conn;
-    $sql = "SELECT product_id, name AS product_name, price as product_price, description as product_description, available_sizes AS product_size, image_url as product_image FROM `024_products` WHERE supplier_id = 1 LIMIT 5";
+    $sql = "SELECT product_id, name AS product_name, price as product_price, description as product_desc, available_sizes AS product_size, image_url as product_image FROM `024_products` WHERE supplier_id = 1 LIMIT 5";
     //$sql = "SELECT * FROM `024_products` LIMIT 5";
     $result = mysqli_query($conn, $sql);
     if ($result === false) {
@@ -23,6 +23,9 @@ function correctKey() {
         return;
     }
     $products = mysqli_fetch_all($result, MYSQLI_ASSOC);
+    foreach ($products as $product) {
+        $product['product_image'] = json_decode($product['product_image'])[0]; // Decodificar el JSON y tomar la primera imagen
+    }
     echo json_encode($products);
 }
 

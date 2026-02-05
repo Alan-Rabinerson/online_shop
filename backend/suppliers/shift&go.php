@@ -1,6 +1,7 @@
 <?php
 include $_SERVER['DOCUMENT_ROOT'] . '/student024/Shop/backend/config/db_connect_switch.php';
 include $_SERVER['DOCUMENT_ROOT'] . '/student024/Shop/backend/functions/write_logJSON.php';
+$ch = curl_init();
 curl_setopt($ch, CURLOPT_URL, "https://remotehost.es/student024/Shop/APIs/other_shop/shift_and_go.php");
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
@@ -8,14 +9,41 @@ curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE);
 $result = curl_exec($ch);
 curl_close($ch);
 $products= json_decode($result, true);
-$sql = "SELECT * FROM `024_products` WHERE supplier_id = 3";
+$sql_delete_sizes = "DELETE FROM `024_product_sizes` WHERE product_id IN (SELECT product_id FROM `024_products` WHERE supplier_id = 3)";
+$sql_products = "SELECT count(*) FROM `024_products`";
+$query_sizes = mysqli_query($conn, $sql_delete_sizes);
+$query_products_count = mysqli_query($conn, $sql_products);
+$count = mysqli_fetch_array($query_products_count)[0];
+$sql = "DELETE FROM `024_products` WHERE supplier_id = 3";
 $query = mysqli_query($conn, $sql);
-if (mysqli_num_rows($query) == 0) {
-    // solo insertar si no hay productos de este proveedor
+
+if ($query_sizes && $query ) { // insertar siempre que se haya borrado correctamente
+    // determine highest existing product_id and set AUTO_INCREMENT to max+1
+    $sql_max = "SELECT IFNULL(MAX(product_id), 0) AS maxid FROM `024_products`";
+    $res_max = mysqli_query($conn, $sql_max);
+    $maxid = 0;
+    if ($res_max) {
+        $row_max = mysqli_fetch_assoc($res_max);
+        $maxid = isset($row_max['maxid']) ? intval($row_max['maxid']) : 0;
+    }
+    $next_ai = $maxid + 1;
+    $sql_alter = "ALTER TABLE `024_products` AUTO_INCREMENT = $next_ai";
+    if (!mysqli_query($conn, $sql_alter)) {
+        write_logJSON("Failed to set AUTO_INCREMENT for 024_products: " . mysqli_error($conn), "error", "products", "changes_log.json");
+    }
     foreach ($products as $product) {
-        $sql = "INSERT INTO `024_products` (product_name, description, long_description, price, supplier_id, product_code, image_url, available_sizes) VALUES ($product[product_name], $product[description], $product[description], $product[unit_price], 3, $product[product_id]), $product[image_path], '40,41,42,43,44,45,46')";
+        $sql = "INSERT INTO `024_products` (name, description, long_description, price, supplier_id, product_code, image_url, available_sizes) VALUES ('" . mysqli_real_escape_string($conn, $product['product_name']) . "', '" . mysqli_real_escape_string($conn, $product['product_desc']) . "', '" . mysqli_real_escape_string($conn, $product['product_desc']) . "', " . floatval($product['product_price']) . ", 3, '" . mysqli_real_escape_string($conn, $product['product_id']) . "', '" . mysqli_real_escape_string($conn, json_encode($product['product_image'])) . "', '40,41,42,43,44,45,46')";
         if (mysqli_query($conn, $sql)) {
-            write_logJSON("New record created successfully for supplier Shift&Go with product code " . $product['product_id'], "insert", "products", "changes_log.json");
+            // get last inserted id (more reliable than SELECT by product_code)
+            $product_id = mysqli_insert_id($conn);
+
+            // insert sizes with error checking
+            $sql_sizes = "INSERT INTO `024_product_sizes` (product_id, size, stock) VALUES ($product_id, '40', 10 ), ($product_id, '41', 10), ($product_id, '42', 10), ($product_id, '43', 10), ($product_id, '44', 10), ($product_id, '45', 10), ($product_id, '46', 10)";
+            if (!mysqli_query($conn, $sql_sizes)) {
+                write_logJSON("Error inserting sizes for product_id $product_id: " . mysqli_error($conn), "error", "products", "changes_log.json");
+            } else {
+                write_logJSON("New record created successfully for supplier Shift&Go with product code " . $product['product_id'], "insert", "products", "changes_log.json");
+            }
         } else {
             write_logJSON("Error creating record for product: " . $product['product_name'] . " - " . mysqli_error($conn), "insert", "products", "changes_log.json");
             $message = urlencode("Error creating record for product: " . $product['product_name']);

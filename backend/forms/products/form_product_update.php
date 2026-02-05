@@ -2,17 +2,31 @@
 <?php 
     include $_SERVER['DOCUMENT_ROOT'].'/student024/Shop/backend/config/db_connect_switch.php';// Llama al script para obtener los productos
     ;
-    // capture product_id from POST
-    $product_id = $_POST['product_id'];
+    // capture product_id from POST safely
+    $product_id = isset($_POST['product_id']) ? intval($_POST['product_id']) : 0;
+    if (!$product_id) {
+        echo '<p>Product ID no proporcionado.</p>';
+        include $_SERVER['DOCUMENT_ROOT'].'/student024/Shop/backend/includes/footer.php';
+        exit;
+    }
+
     // fetch product data from database based on product_id
-    $sql = "SELECT * FROM 024_product_view WHERE product_id = $product_id";
+    $sql = "SELECT * FROM `024_products` WHERE product_id = $product_id";
     $result = mysqli_query($conn, $sql);
-    $products = mysqli_fetch_all($result, MYSQLI_ASSOC);
-    $product_id = $products[0]['product_id'];
-    $product_name = $products[0]['name'];
-    $description = $products[0]['description'];
-    $price = $products[0]['price'];
-    $tallas = $products[0]['available_sizes'];
+    if (!$result || mysqli_num_rows($result) === 0) {
+        echo '<p>Producto no encontrado.</p>';
+        include $_SERVER['DOCUMENT_ROOT'].'/student024/Shop/backend/includes/footer.php';
+        exit;
+    }
+    $products = mysqli_fetch_assoc($result);
+
+    $product_id = isset($products['product_id']) ? $products['product_id'] : $product_id;
+    $product_name = $products['name'] ?? '';
+    $description = $products['description'] ?? '';
+    $long_description = $products['long_description'] ?? '';
+    $price = $products['price'] ?? 0;
+    $tallas = $products['available_sizes'] ?? '';
+    $supplier = $products['supplier_id'] ?? '';
     // fetch existing size stocks for this product
     $sizeStocks = [];
     $sql = "SELECT size, stock FROM 024_product_sizes WHERE product_id = $product_id";
@@ -22,7 +36,7 @@
             $sizeStocks[$result['size']] = (int)$result['stock'];
         }
     }
-    $supplier = $products[0]['supplier'];
+    $supplier = $products['supplier'] ?? '';
    
 
 ?>
@@ -46,14 +60,14 @@
                     <input type="number" step="0.01" class="form-control" id="price" name="price" required value="<?php echo $price; ?>">
                 </div>
                 <div class="mb-3">
-                    <label for="supplier" class="form-label">Supplier:</label>
-                    <input type="text" class="form-control" id="supplier" name="supplier" required value="<?php echo $supplier; ?>">
+                    <label for="supplier_id" class="form-label">Supplier ID:</label>
+                    <input type="text" class="form-control" id="supplier_id" name="supplier_id" required value="<?php echo $supplier; ?>">
                 </div>
                 <div class="mb-3">
                     <label for="tallas" class="form-label">Sizes (Tallas):</label>
                     <?php
                         $sizes = explode(",", $tallas);
-                        $all_sizes = ['XS', 'S', 'M', 'L', 'XL', 'XXL'];
+                        $all_sizes = ['XS', 'S', 'M', 'L', 'XL', 'XXL', '40', '41', '42', '43', '44', '45', '46']; // Lista completa de tallas disponibles
                         foreach ($all_sizes as $size) {
                             $checked = in_array($size, $sizes) ? 'checked' : '';
                             $stock_val = isset($sizeStocks[$size]) ? $sizeStocks[$size] : '';

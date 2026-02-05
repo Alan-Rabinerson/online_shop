@@ -21,6 +21,10 @@
                 <ul class="flex space-x-2 list-none p-0 m-0">
                     <li class="boton-rojo"><a class="text-beige hover:underline" href="/student024/Shop/backend/views/reviews.php"> View Reviews</a></li>
                 </ul>
+                <h3 class="mt-4">Supplier Dashboard</h3>
+                <ul class="flex space-x-2 list-none p-0 m-0">
+                    <li class="boton-rojo"><a class="text-beige hover:underline" href="/student024/Shop/backend/views/supplier_dashboard.php"> Supplier Dashboard</a></li>
+                </ul>
                 <?php } else { ?>
                 <h3 class="mt-4">My Account</h3>
                 <ul class="flex space-x-2 list-none p-0 m-0">
