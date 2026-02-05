@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Producto</title>
     <link rel="stylesheet" href="../styles/css/output.css">
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.14.1/themes/base/jquery-ui.css">
 </head>
 <body>
     <header>
@@ -47,7 +48,8 @@
             </ul>
         </div>
     </header>
-    <main class="p-8 bg-azul-oscuro text-beige">
+    <main class="p-8 bg-azul-oscuro text-beige relative">
+        <button id="accessibility-btn" class="fixed top-4 right-4 z-50 bg-black text-white rounded-full px-3 py-1 shadow-md font-semibold focus:outline-none focus:ring-4 focus:ring-yellow-300" aria-label="Accesibilidad" title="Accesibilidad"><img src="../assets/logos/accesibility.svg" alt="Icono de accesibilidad"></button>
         <h1 class="text-3xl font-bold mb-6">Sudadera Streetwear</h1>
         <div class="product-detail flex flex-col lg:flex-row gap-8">
             <div class="product-images flex flex-col items-center lg:items-start">
@@ -208,5 +210,6 @@
     <script src="../JavaScript/producto.js"></script>
     <script src="../JavaScript/guest.js"></script>
     <script src="./JavaScript/create_order.js"></script>
+    <script src="https://code.jquery.com/ui/1.14.1/jquery-ui.min.js"></script>
 </body>
 </html> 

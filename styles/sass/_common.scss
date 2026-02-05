@@ -215,6 +215,33 @@ header {
     }
 }
 
+
+/* Accessibility button wrapper and styles */
+.main-accessible {
+  position: relative;
+}
+
+.accessibility-btn {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  z-index: 9999;
+  background: #000;
+  color: #fff;
+  border-radius: 999px;
+  padding: 0.45rem 0.6rem;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+  font-weight: 600;
+}
+
+.accessibility-btn:focus {
+  outline: 3px solid #ffd54f;
+  outline-offset: 2px;
+}
+
+
 footer{
     background-color: $color-fondo-footer;
     display: flex;

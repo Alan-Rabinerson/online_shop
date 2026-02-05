@@ -7,6 +7,7 @@
     <meta name="description" content="Tienda online de ropa streetwear urbana">
     <link rel="stylesheet" href="./styles/css/homepage.css">
     <link rel="stylesheet" href="./styles/css/header_footer.css">
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.14.1/themes/base/jquery-ui.css">
 </head>
 <body>
     <!-- Header -->
@@ -53,8 +54,21 @@
     </header>
     
     <!-- Main Content -->
-    <main>
-        
+    <main class="main-accessible">
+        <button id="accessibility-btn" class="accessibility-btn" aria-label="Accesibilidad" title="Accesibilidad"><img src="./assets/logos/accessibility.svg" alt="Icono de accesibilidad"></button>
+        <div class="accessibility-menu">
+            <h2 class="">Opciones de Accesibilidad</h2>
+            <div class="accessibility-options">
+            <button id="toggle-dark-mode" class="accessibility-option" aria-pressed="false"><img src="./assets/logos/dark_mode.png" alt="icono modo-oscuro">Modo Oscuro</button>
+            <button id="toggle-clear-mode" class="accessibility-option" aria-pressed="false"><img src="./assets/logos/light_mode.png" alt="icono modo-claro">Modo Claro</button>
+            <button id="toggle-saturation-high" class="accessibility-option" aria-pressed="false"><img src="./assets/logos/subir_saturacion.png" alt="icono saturación alta">Saturación Alta</button>
+            <button id="toggle-saturation-low" class="accessibility-option" aria-pressed="false"><img src="./assets/logos/bajar_saturacion.png" alt="icono saturación baja">Saturación Baja</button>
+            <button id="toggle-grayscale" class="accessibility-option" aria-pressed="false"><img src="./assets/logos/greyscale.png" alt="greyscale logo">Escala de Grises</button>
+            <button id="toggle-text-size" class="accessibility-option" aria-pressed="false"><img src="./assets/logos/increase_font.png" alt="icono aumentar tamaño de texto">Aumentar Tamaño de Texto</button>
+            <button id="untoggle-text-size" class="accessibility-option" aria-pressed="false"><img src="./assets/logos/decrease_font.png" alt="icono disminuir tamaño de texto">Disminuir Tamaño de Texto</button>
+            <button id="reset-accessibility" class="accessibility-option" aria-pressed="false"><img src="./assets/logos/reset.png" alt="icono reiniciar ajustes de accesibilidad">Reiniciar Ajustes de Accesibilidad</button>
+            </div>
+        </div>
         
         
         <!-- Hero Banner -->
@@ -154,11 +168,13 @@
             <p>&copy; 2025 Concrete Jungle. Todos los derechos reservados.</p>
         </div>
     </footer>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/ui/1.14.1/jquery-ui.min.js"></script>
     <script src="./JavaScript/guest.js"></script>
     <script src="./JavaScript/insert_shopping_cart.js"></script>
     <script src="./JavaScript/homepage.js"></script>
     <script src="./JavaScript/menu.js"></script>
     <script src="./JavaScript/create_order.js"></script>
-    
+    <script src="./JavaScript/accessibility.js"></script>
 </body>
 </html>

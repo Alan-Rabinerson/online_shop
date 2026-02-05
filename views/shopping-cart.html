@@ -4,7 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../styles/sass/cart.css">
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.14.1/themes/base/jquery-ui.css">
     <title>Shopping Cart</title>
+    
 </head>
 <body>
     <header>
@@ -40,7 +42,8 @@
             </ul>
         </div>
     </header>
-    <main>
+    <main style="position:relative;">
+        <button id="accessibility-btn" class="accessibility-btn" aria-label="Accesibilidad" title="Accesibilidad"><img src="../assets/logos/accesibility.svg" alt="Icono de accesibilidad"></button>
         
         <!-- Header del Carrito -->
         <div class="carrito-header">
@@ -104,4 +107,5 @@
 <script src="../JavaScript/menu.js"></script>
 <script src="https://code.jquery.com/ui/1.14.1/jquery-ui.min.js"></script>
 <script src="./JavaScript/create_order.js"></script>
+<script src="https://code.jquery.com/ui/1.14.1/jquery-ui.min.js"></script>
 </html>
