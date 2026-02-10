@@ -7,10 +7,12 @@ $database = 'online_shop';
 
 
 $conn = mysqli_connect($host, $username, $password, $database);
-mysqli_set_charset($conn, 'utf8');
-
-if (!$conn) {
-    echo "Connection failed: " . mysqli_connect_error();
+if ($conn) {
+    mysqli_set_charset($conn, 'utf8');
+} else {
+    header('Content-Type: application/json', true, 500);
+    echo json_encode(['error' => 'DB connection failed', 'detail' => mysqli_connect_error()]);
+    exit;
 }
 
 ?>

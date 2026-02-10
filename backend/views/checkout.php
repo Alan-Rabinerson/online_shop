@@ -1,7 +1,57 @@
-<?php include $_SERVER['DOCUMENT_ROOT'].'/student024/Shop/backend/includes/header.php'; 
+<?php
+    // Include DB connection and helpers first so failures return clean 500/JSON
+    include $_SERVER['DOCUMENT_ROOT'].'/student024/Shop/backend/includes/header.php';
     include $_SERVER['DOCUMENT_ROOT'].'/student024/Shop/backend/config/db_connect_switch.php';
     include $_SERVER['DOCUMENT_ROOT'].'/student024/Shop/backend/includes/read_customer_data.php';
+    include $_SERVER['DOCUMENT_ROOT'].'/student024/Shop/backend/functions/write_log.php';
 
+    // DEBUG TEMPORAL: mostrar y loguear errores durante diagnóstico (quitar en producción)
+    ini_set('display_errors', 1);
+    ini_set('display_startup_errors', 1);
+    error_reporting(E_ALL);
+
+    // Log request info for remote diagnosis
+    $logPath = rtrim($_SERVER['DOCUMENT_ROOT'] ?? __DIR__, DIRECTORY_SEPARATOR) . '/student024/Shop/backend/logs/error_log.txt';
+    $startMsg = "[CHECKOUT] " . date('Y-m-d H:i:s') . " - METHOD=" . ($_SERVER['REQUEST_METHOD'] ?? '') . " HOST=" . ($_SERVER['HTTP_HOST'] ?? '') . " URI=" . ($_SERVER['REQUEST_URI'] ?? '') . "\n";
+    @file_put_contents($logPath, $startMsg, FILE_APPEND);
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        @file_put_contents($logPath, "[CHECKOUT POST DATA] " . json_encode($_POST) . "\n", FILE_APPEND);
+    }
+
+    // Shutdown handler to capture fatal errors during checkout
+    register_shutdown_function(function() use ($logPath) {
+        $err = error_get_last();
+        if ($err) {
+            $msg = "[CHECKOUT SHUTDOWN] " . date('Y-m-d H:i:s') . " - " . ($err['message'] ?? '') . " in " . ($err['file'] ?? '') . " on line " . ($err['line'] ?? '') . "\n";
+            @file_put_contents($logPath, $msg, FILE_APPEND);
+        }
+    });
+
+    // Basic DB connection check
+    if (!isset($conn) || !$conn) {
+        @file_put_contents($logPath, "[CHECKOUT] DB connection missing\n", FILE_APPEND);
+        http_response_code(500);
+        echo "<h2>Debug: DB connection failed on remote host. Revisa los logs del servidor.</h2>";
+        exit;
+    }
+    // Quick debug response when requested to avoid relying on remote log files
+    if (isset($_REQUEST['__debug']) && $_REQUEST['__debug'] == '1') {
+        $diagnostics = [
+            'docRoot' => $_SERVER['DOCUMENT_ROOT'] ?? '',
+            'request_method' => $_SERVER['REQUEST_METHOD'] ?? '',
+            'host' => $_SERVER['HTTP_HOST'] ?? '',
+            'request_uri' => $_SERVER['REQUEST_URI'] ?? '',
+            'post' => $_POST,
+            'get' => $_GET,
+            'session_keys' => isset($_SESSION) ? array_keys($_SESSION) : [],
+            'log_path' => $logPath,
+            'log_exists' => file_exists($logPath),
+            'log_writable' => is_writable($logPath),
+        ];
+        header('Content-Type: application/json');
+        echo json_encode($diagnostics, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
+        exit;
+    }
 ?>
 <main class="container p-6">
     <h2 class="text-2xl font-bold mb-4">Checkout</h2>
@@ -31,20 +81,28 @@
                 <div class="mb-4">
                     <h3 class="font-medium">Shipping address</h3>
 
-                    <?php if (!empty($addresses)): ?>
-                        <?php foreach ($addresses as $i => $addr): ?>
+                    <?php if (!empty($addresses)){ ?> 
+                        <?php foreach ($addresses as $i => $addr){ ?>
                             <?php
+                                $address = [];
                                 $addr_id = isset($addr['address_id']) ? (int)$addr['address_id'] : ($i + 1);
                                 $street = htmlspecialchars($addr['street'] ?? $addr['address'] ?? '', ENT_QUOTES);
                                 $city = htmlspecialchars($addr['city'] ?? '', ENT_QUOTES);
                                 $postal = htmlspecialchars($addr['postal_code'] ?? $addr['zip_code'] ?? '', ENT_QUOTES);
                                 $prov = htmlspecialchars($addr['province'] ?? '', ENT_QUOTES);
                                 $label = htmlspecialchars($addr['address_name'] ?? ($street . ' ' . $city . ' ' . $postal), ENT_QUOTES);
+                                $address = [
+                                    'address_id' => $addr_id,
+                                    'street' => $street,
+                                    'city' => $city,
+                                    'postal_code' => $postal,
+                                    'province' => $prov
+                                ];
                             ?>
                             <label class="block mt-2">
                                 <input type="radio"
                                        name="selected_address"
-                                       value="<?php echo $addr_id; ?>"
+                                       value="<?php echo htmlspecialchars(json_encode($address), ENT_QUOTES); ?>"
                                        data-street="<?php echo $street; ?>"
                                        data-city="<?php echo $city; ?>"
                                        data-postal="<?php echo $postal; ?>"
@@ -52,15 +110,17 @@
                                        class="mr-2"
                                        <?php if ($i === 0) echo 'checked'; ?>/>
                                 <?php echo $label; ?>
-                            </label>
-                        <?php endforeach; ?>
+                            </label>  
+                            
+                        <?php } ?>
 
                         <label class="block mt-2">
                             <input type="radio" name="selected_address" value="new" class="mr-2" />
                             Use a new address
                         </label>
-                    <?php endif; ?>
-                    <input type="hidden" name="selected_address_id" id="selected_address_id" value="<?php echo htmlspecialchars($addr_id ?? '', ENT_QUOTES); ?>">        
+                    <?php } ?>
+                    <input type="hidden" name="full_selected_address" id="full_selected_address" value="<?php echo htmlspecialchars(json_encode($address ?? []), ENT_QUOTES); ?>">
+                    <input type="hidden" name="selected_address_id" id="selected_address_id" value="<?php echo htmlspecialchars($addr_id ?? '', ENT_QUOTES); ?>">
                     <label class="block mt-2">Address
                         <input name="address" type="text" required class="w-full p-2 mt-1 border rounded" placeholder="Calle, número, piso" value="<?php echo htmlspecialchars($street ?? $street ?? $full_name ?? '', ENT_QUOTES); ?>">
                     </label>

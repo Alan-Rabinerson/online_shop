@@ -162,4 +162,5 @@ CALL 024_automaticOrders();
 SELECT * FROM 024_order_view;
 END$$
 
+
 DELIMITER ;

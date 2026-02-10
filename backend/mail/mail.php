@@ -29,7 +29,7 @@ function send_email($address, $name, $subject, $body_html, $body_text, $attachme
         $mail->Subject = $subject;
         $mail->Body = $body_html;
         $mail->AltBody = $body_text;
-        $mail->addAttachment($_SERVER['DOCUMENT_ROOT'].'/student024/Shop/assets/logos/logo_sin_fondo.png', 'logo.png');
+        //$mail->addAttachment($_SERVER['DOCUMENT_ROOT'].'/student024/Shop/assets/logos/logo_sin_fondo.png', 'logo.png');
         $mail->send();
         header("Location: /student024/Shop/backend/views/my_orders.php?message=" . urlencode("Email confirmation sent successfully to $name."));
     } catch (Exception $e) {

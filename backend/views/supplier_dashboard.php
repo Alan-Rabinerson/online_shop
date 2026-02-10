@@ -28,7 +28,16 @@
 				<h2 class="text-xl font-semibold mb-2">Shift&Go</h2>
 				<p class="text-sm opacity-80">Sincroniza los productos del proveedor Shift&Go.</p>
 				<p class="text-xs mt-2 opacity-80">Nota: se reemplazan los productos existentes de este proveedor.</p>
-				<form action="/student024/Shop/backend/suppliers/shift&go.php" method="POST" class="mt-4">
+				<form action="/student024/Shop/backend/suppliers/shift_and_go.php" method="POST" class="mt-4">
+					<button type="submit" class="boton-rojo">Actualizar productos</button>
+				</form>
+			</section>
+
+			<section class="bg-azul-claro text-beige rounded-lg p-6 shadow-md border border-azul-oscuro">
+				<h2 class="text-xl font-semibold mb-2">BRAND2</h2>
+				<p class="text-sm opacity-80">Sincroniza los productos del proveedor BRAND2.</p>
+				<p class="text-xs mt-2 opacity-80">Nota: se reemplazan los productos existentes de este proveedor.</p>
+				<form action="/student024/Shop/backend/suppliers/brand2.php" method="POST" class="mt-4">
 					<button type="submit" class="boton-rojo">Actualizar productos</button>
 				</form>
 			</section>

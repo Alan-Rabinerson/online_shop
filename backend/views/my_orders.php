@@ -1,5 +1,21 @@
 <?php include $_SERVER['DOCUMENT_ROOT'].'/student024/Shop/backend/includes/header.php';
     require $_SERVER['DOCUMENT_ROOT'].'/student024/Shop/backend/functions/showOrders.php';
+    include $_SERVER['DOCUMENT_ROOT'].'/student024/Shop/backend/functions/write_log.php';
+    // DEBUG TEMPORAL: mostrar y loguear errores durante diagnóstico (quitar en producción)
+    ini_set('display_errors', 1);
+    ini_set('display_startup_errors', 1);
+    error_reporting(E_ALL);
+    write_log("DEBUG checkout.php start - DOCUMENT_ROOT=" . ($_SERVER['DOCUMENT_ROOT'] ?? '') . " HTTP_HOST=" . ($_SERVER['HTTP_HOST'] ?? '' ), "error_log.txt");
+
+    // Intentar incluir conexión y comprobar $conn
+    require $_SERVER['DOCUMENT_ROOT'].'/student024/Shop/backend/config/db_connect_switch.php';
+    if (!isset($conn) || !$conn) {
+        write_log("DEBUG checkout.php - DB connection not available. Conn var: " . var_export($conn ?? null, true), "error_log.txt");
+        // Mostrar mensaje legible en HTML para el debug remoto
+        http_response_code(500);
+        echo "<h2>Debug: DB connection failed on remote host. Revisa los logs del servidor.</h2>";
+        exit;
+    } 
 ?>
 <main class="min-h-screen p-4 flex flex-col items-center justify-start relative">
     <!-- Botón para abrir el popup de leyenda -->
@@ -30,7 +46,7 @@
                     $order_number = $order['order_number'];
                 }
                 foreach($order_id_list as $order_id => $products){
-                    showOrders($products, $order_number);
+                    showOrders($products);
                 }
                 echo "</div>";
             }

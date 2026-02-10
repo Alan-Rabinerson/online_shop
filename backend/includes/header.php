@@ -4,6 +4,31 @@
         session_start();
     }
 
+    // Quick debug responder: if __debug=1 provided, return JSON diagnostics and exit
+    if ((isset($_GET['__debug']) && $_GET['__debug'] == '1') || (isset($_POST['__debug']) && $_POST['__debug'] == '1')) {
+        $docRoot = $_SERVER['DOCUMENT_ROOT'] ?? '';
+        $localConfig = $docRoot . '/student024/Shop/backend/config/db_connect.php';
+        $remoteConfig = $docRoot . '/student024/Shop/backend/config/db_connect_remotehost.php';
+        $diag = [
+            'script_name' => $script_name ?? ($_SERVER['SCRIPT_NAME'] ?? ''),
+            'request_uri' => $_SERVER['REQUEST_URI'] ?? '',
+            'host' => $_SERVER['HTTP_HOST'] ?? '',
+            'method' => $_SERVER['REQUEST_METHOD'] ?? '',
+            'session_keys' => isset($_SESSION) ? array_keys($_SESSION) : [],
+            'session_sample' => isset($_SESSION) ? array_intersect_key($_SESSION, array_flip(array_slice(array_keys($_SESSION),0,10))) : [],
+            'local_config_exists' => file_exists($localConfig),
+            'remote_config_exists' => file_exists($remoteConfig),
+            'local_config_readable' => is_readable($localConfig),
+            'remote_config_readable' => is_readable($remoteConfig),
+        ];
+        if (file_exists($remoteConfig) && is_readable($remoteConfig)) {
+            $diag['remote_config_head'] = substr(file_get_contents($remoteConfig), 0, 400);
+        }
+        header('Content-Type: application/json');
+        echo json_encode($diag, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
+        exit;
+    }
+
 
     // Determine requested path. Prefer SCRIPT_NAME to avoid rewrite/query issues.
     $script_name = strtolower($_SERVER['SCRIPT_NAME'] ?? $_SERVER['PHP_SELF'] ?? '');

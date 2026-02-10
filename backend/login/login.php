@@ -42,6 +42,7 @@
             $_SESSION['loggedin'] = true;
             $_SESSION['customer_id'] = $user[0]['customer_id'];
             $_SESSION['username'] = $user[0]['username'];
+            $_SESSION['email'] = $user[0]['email'];
             
             if ($user[0]['type'] == 'admin') {
                 $_SESSION['role'] = 'admin';

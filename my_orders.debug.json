@@ -1,0 +1,13 @@
+{
+    "script_name": "/student024/Shop/backend/views/my_orders.php",
+    "request_uri": "/student024/Shop/backend/views/my_orders.php?__debug=1",
+    "host": "remotehost.es",
+    "method": "GET",
+    "session_keys": [],
+    "session_sample": [],
+    "local_config_exists": true,
+    "remote_config_exists": true,
+    "local_config_readable": true,
+    "remote_config_readable": true,
+    "remote_config_head": "<?php\n\n$username = 'dwess1234';\n$host = 'remotehost.es';\n$database = 'dwesdatabase';\n$password = 'Usertest1234.';\n\n$conn = mysqli_connect($host, $username, $password, $database);\nif ($conn) {\n    mysqli_set_charset($conn, 'utf8');\n} else {\n    header('Content-Type: application/json', true, 500);\n    echo json_encode(['error' => 'DB connection failed (remote)', 'detail' => mysqli_connect_error()]);"
+}

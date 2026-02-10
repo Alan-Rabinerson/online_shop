@@ -9,4 +9,3 @@
     foreach($order_id_list as $order_group ){
         showOrders($order_group);
     }
-?>

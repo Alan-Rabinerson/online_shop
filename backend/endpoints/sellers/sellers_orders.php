@@ -2,8 +2,7 @@
     header('Content-Type: application/json; charset=UTF-8');
     require $_SERVER['DOCUMENT_ROOT'] . '/student024/Shop/backend/config/db_connect_switch.php';
     require $_SERVER['DOCUMENT_ROOT'] . '/student024/Shop/backend/endpoints/guests/create_guest.php';
-    $api_key_shift_and_go = '85c712e7-6a84-4a5a-87a3-47b25df6771b';
-    $api_key_teamwear = 'e888b918-330e-43c5-a103-111d57a4a28f'; 
+    
     if ($_SERVER['REQUEST_METHOD'] === 'GET' && ($_GET['api_key'] === $api_key_shift_and_go || $_GET['api_key'] === $api_key_teamwear)) {
         correctKey();
     } else {
@@ -28,8 +27,7 @@
         $type = $conn->real_escape_string('customer');
         
         // Insertar el cliente guest en la base de datos
-        $sql = "INSERT INTO `024_customers` (`first_name`, `last_name`, `email`, `username`, `password`, `phone`, `birth_date`, `type`) VALUES (".
-                "'" . $first_name . "', '" . $last_name . "', '" . $email . "', '" . $username . "', '" . $password . "', '" . $phone . "', CURDATE(), '" . $type . "')";
+        $sql = "INSERT INTO `024_customers` (`first_name`, `last_name`, `email`, `username`, `password`, `phone`, `birth_date`, `type`) VALUES ("."'" . $first_name . "', '" . $last_name . "', '" . $email . "', '" . $username . "', '" . $password . "', '" . $phone . "', CURDATE(), '" . $type . "')";
         
         if ($conn->query($sql) === TRUE) {
             return $conn->insert_id; // Retornar el customer_id generado
@@ -41,18 +39,22 @@
     function correctKey() {
         global $conn;
         $order_date = date('Y-m-d H:i:s');
-        
+        $api_key_shift_and_go = '85c712e7-6a84-4a5a-87a3-47b25df6771b';
+        $api_key_teamwear = 'e888b918-330e-43c5-a103-111d57a4a28f'; 
+        $api_key_brand2 = 'ba6e471d-3721-4959-afba-d2f55d021b9f';
         // Crear el guest y obtener su customer_id
         $customer_id = create_guest_and_get_customer_id();
-
+        $sql = "INSERT INTO 024_address (`street`, `city`, `postal_code`, `province`) VALUES ( '" .mysqli_real_escape_string($conn, $_GET['customer_address']) . "', '" .mysqli_real_escape_string($conn, $_GET['customer_location']) . "', '" .mysqli_real_escape_string($conn, $_GET['customer_zip']) . "', '" .mysqli_real_escape_string($conn, $_GET['customer_country']) . "')";
         
         $product_id = $_GET['product_id'];
         $quantity = $_GET['quantity'];
         $order_date = date('Y-m-d H:i:s');
         if ($_GET['api_key'] === $api_key_shift_and_go) {
             $supplier_id = 3; // Shift&Go
-        } else {
+        } else if ($_GET['api_key'] === $api_key_teamwear) {
             $supplier_id = 2; // Teamwear
+        } else if ($_GET['api_key'] === $api_key_brand2) {
+            $supplier_id = 4; // Brand2
         }
 
         $sql = "INSERT INTO 024_orders (product_id, quantity, order_date, supplier_id, customer_id) VALUES (" .intval($product_id) . ", " .intval($quantity) . ", '" .mysqli_real_escape_string($conn, $order_date) . "', " .intval($supplier_id) . ", " .intval($customer_id) . ")";

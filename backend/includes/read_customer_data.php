@@ -15,6 +15,8 @@
     $province = '';
     $payment_methods = [];
     $password_hash = '';
+    $first_name = '';
+    $last_name = '';
 
     if ($customer_id) {
         // recoger todos los registros relacionados (direcciones / métodos de pago)
@@ -34,6 +36,8 @@
                 // Datos básicos (tomar del primer registro disponible)
                 if (empty($full_name)) {
                     $full_name = trim((($row['first_name'] ?? '') . ' ' . ($row['last_name'] ?? '')));
+                    $first_name = $row['first_name'] ?? '';
+                    $last_name = $row['last_name'] ?? '';
                 }
                 if (empty($email)) {
                     $email = $row['email'] ?? '';
@@ -50,7 +54,7 @@
                     'address_name' => $row['address_name'] ?? '',
                     'street'     => $row['street'] ?? ($row['address'] ?? ''),
                     'city'       => $row['city'] ?? '',
-                    'zip_code'   => $row['postal_code'] ?? ($row['zip_code'] ?? ''),
+                    'zip_code'   => ($row['zip_code'] ?? ''),
                     'province'   => $row['province'] ?? '',
                     'label'      => $row['address_label'] ?? ''
                 ];
