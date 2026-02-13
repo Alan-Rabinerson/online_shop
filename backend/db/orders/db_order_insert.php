@@ -131,6 +131,19 @@ if (mysqli_query($conn, $clear_cart_sql)) {
     if (!empty($user_email)) {
         send_email("$user_email", "$user_name", 'Order Confirmation - Your Order Has Been Placed', '<h1>Thank you for your order!</h1><p>Your order has been placed successfully and is being processed. We will notify you once it is shipped.</p><br><p>Order ID: ' . $order_number['order_id'] . '</p>', 'Your order has been placed successfully and is being processed. We will notify you once it is shipped. Order ID: ' . $order_number['order_id']);
     }
+    if (json_last_error() === JSON_ERROR_NONE) {
+    if (isset($response_data['status']) && $response_data['status'] === 'success') {
+        header("Location: /student024/Shop/backend/views/my_orders.php?success=Order+placed+successfully");
+        exit();
+    } else {
+        $error_message = isset($response_data['message']) ? $response_data['message'] : 'Unknown error';
+        header("Location: /student024/Shop/backend/views/my_orders.php?error=" . urlencode($error_message));
+        exit();
+    }
+
+    header("Location: /student024/Shop/backend/views/my_orders.php?error=Invalid+response+from+supplier");
+    exit();
+}
     header("Location: /student024/Shop/backend/views/my_orders.php?message=Order+placed+successfully");
 } else {
     header("Location: /student024/Shop/backend/views/my_orders.php?error=Failed+to+clear+shopping+cart");

@@ -445,7 +445,7 @@ select.size-select {
 .accessibility-menu {
     position: fixed;
     top: 3.5rem;
-    right: 10rem;
+    right: 1em;
     background: var(--bg-color);
     border: 2px solid var(--secondary-color);
     border-radius: 8px;
@@ -454,7 +454,7 @@ select.size-select {
     flex-direction: column;
     gap: var(--spacing-sm);
     z-index: 99999;
-    max-width: 350px;
+    max-width: 500px;
 }
 
 .accessibility-menu .accessibility-options {
@@ -463,13 +463,26 @@ select.size-select {
     gap: var(--spacing-sm);
 }
 
+.accessibility-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+button#close-accessibility {
+    background: transparent;
+    color: var(--text-color);
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+}
+
 .accessibility-menu.active{
     display: flex;
 }
 
 .accessibility-menu h2 {
     font-size: 1.2rem;
-    margin-bottom: var(--spacing-md);
     color: var(--text-color);
 }
 

@@ -11,9 +11,13 @@ try {
     if (!$conn) {
         throw new Exception('Conexión a la base de datos rechazada: ' . mysqli_connect_error());
     }
-
-    $guest_id_raw = isset($_POST['guest_id']) ? trim($_POST['guest_id']) : '';
-
+    if (isset($_POST['guest_id'])) {
+        $guest_id_raw = trim($_POST['guest_id']);
+    } else if (isset($_GET['guest_id'])) {
+        $guest_id_raw = trim($_GET['guest_id']);
+    } else {
+        throw new Exception('guest_id no proporcionado en POST o GET');
+    }
     // Validar que guest_id sea numérico y no esté vacío
     if ($guest_id_raw === '' || !ctype_digit($guest_id_raw)) {
         throw new Exception('guest_id inválido o no proporcionado: ' . $guest_id_raw);

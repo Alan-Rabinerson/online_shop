@@ -32,6 +32,7 @@ function correctKey() {
         } else {
             $product['product_image'] = null;
         }
+        $product['product_stock'] = 10; // Valor fijo para stock, ya que no se proporciona en la consulta original
     }
     unset($product);
     echo json_encode($products);

@@ -3,6 +3,8 @@ header('Content-Type: application/json; charset=utf-8');
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
+// Buffer output so that unexpected HTML/warnings don't break JSON parsing on the client
+ob_start();
 
 try {
     // Usar conexión remota
@@ -94,8 +96,16 @@ try {
     }
 } catch (Exception $e) {
     http_response_code(500);
-    echo json_encode(['success' => false, 'error' => 'Error al añadir al carrito: ' . $e->getMessage()]);
+    $extra = trim((string) ob_get_clean());
+    $response = ['success' => false, 'error' => 'Error al añadir al carrito: ' . $e->getMessage()];
+    if ($extra !== '') {
+        // include extra output for debugging (server warnings/HTML). Keep it short.
+        $response['debug_output'] = mb_substr(strip_tags($extra), 0, 1000);
+    }
+    echo json_encode($response);
     exit;
 }
+// Clean any buffered output on success
+ob_end_clean();
 ?>
 

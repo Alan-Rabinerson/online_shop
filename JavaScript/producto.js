@@ -1,7 +1,7 @@
 let divproductImages = document.querySelector(".product-images");
 let mainImage = divproductImages.querySelector("img");
 let additionalImages = divproductImages.querySelectorAll(
-  ".additional-images img"
+  ".additional-images img",
 );
 let anadirCarritoBtn = document.getElementById("añadir-carrito-btn");
 let crtCount = document.querySelector(".cart-count");
@@ -60,7 +60,9 @@ function loadProductDetail() {
               mainImg.src = `../assets/imagenes/foto${product.product_id}.jpg`;
               mainImg.alt = product.product_name || "";
             }
-            const additionalImgs = document.querySelectorAll(".additional-images img");
+            const additionalImgs = document.querySelectorAll(
+              ".additional-images img",
+            );
             if (additionalImgs) {
               additionalImgs.forEach((img, index) => {
                 img.src = `../assets/imagenes/foto-detalle-${product.product_id}-${
@@ -73,14 +75,22 @@ function loadProductDetail() {
             // Actualizar precio
             const priceElement = document.querySelector("#precio .text-2xl");
             if (priceElement) {
-              const priceNum = typeof product.price !== "undefined" ? Number(product.price) : NaN;
-              priceElement.textContent = !isNaN(priceNum) ? `${priceNum.toFixed(2)}€` : (product.price || "");
+              const priceNum =
+                typeof product.price !== "undefined"
+                  ? Number(product.price)
+                  : NaN;
+              priceElement.textContent = !isNaN(priceNum)
+                ? `${priceNum.toFixed(2)}€`
+                : product.price || "";
             }
 
             // Actualizar descripción
-            const descriptionElement = document.querySelector(".product-description p");
+            const descriptionElement = document.querySelector(
+              ".product-description p",
+            );
             if (descriptionElement) {
-              descriptionElement.textContent = product.description || "Sin descripción disponible";
+              descriptionElement.textContent =
+                product.description || "Sin descripción disponible";
             }
 
             // Materiales
@@ -106,6 +116,113 @@ function loadProductDetail() {
               document.body.appendChild(productIdInput);
             }
             productIdInput.value = product.product_id;
+            // Stock handling: display total stock and per-size stock
+            const stockInfoEl = document.getElementById("stock-info");
+            const cantidadInput = document.getElementById("cantidad");
+            const addBtn = document.getElementById("añadir-carrito-btn");
+            let totalStock =
+              typeof product.total_stock !== "undefined"
+                ? Number(product.total_stock)
+                : 0;
+            // If sizes provided, map stock to radio inputs
+            let currentStock = totalStock;
+            try {
+              const sizeRadios = document.querySelectorAll(
+                'input[name="talla"]',
+              );
+              if (
+                Array.isArray(product.sizes) &&
+                product.sizes.length > 0 &&
+                sizeRadios.length > 0
+              ) {
+                // set data-stock on radios
+                sizeRadios.forEach((radio) => {
+                  const val = radio.value;
+                  const found = product.sizes.find(
+                    (s) => s.size == val || String(s.size) === String(val),
+                  );
+                  const stockVal = found ? Number(found.stock) : 0;
+                  radio.dataset.stock = stockVal;
+                });
+                // pick the checked radio or the first
+                const checked = document.querySelector(
+                  'input[name="talla"]:checked',
+                );
+                if (checked) {
+                  currentStock = Number(checked.dataset.stock || 0);
+                } else {
+                  currentStock = Number(product.sizes[0].stock || 0);
+                  // mark first radio checked if exists
+                  const firstRadio = document.querySelector(
+                    'input[name="talla"]',
+                  );
+                  if (firstRadio) firstRadio.checked = true;
+                }
+                // listen for size changes
+                sizeRadios.forEach((r) =>
+                  r.addEventListener("change", (ev) => {
+                    const s = ev.target;
+                    currentStock = Number(s.dataset.stock || 0);
+                    updateStockUI();
+                  }),
+                );
+              }
+            } catch (e) {
+              console.error("Error mapping sizes stock:", e);
+            }
+
+            function updateStockUI() {
+              if (stockInfoEl)
+                stockInfoEl.textContent =
+                  currentStock > 0
+                    ? `Stock: ${currentStock} unidades`
+                    : "Sin stock";
+              if (cantidadInput) {
+                cantidadInput.max = Math.max(1, currentStock);
+                if (currentStock <= 0) {
+                  cantidadInput.value = 0;
+                  cantidadInput.setAttribute("disabled", "disabled");
+                } else {
+                  if (Number(cantidadInput.value) < 1) cantidadInput.value = 1;
+                  cantidadInput.removeAttribute("disabled");
+                }
+              }
+              if (addBtn) {
+                if (currentStock <= 0) {
+                  addBtn.textContent = "Sin stock";
+                  addBtn.classList.add("opacity-50");
+                  addBtn.setAttribute("disabled", "disabled");
+                } else {
+                  addBtn.textContent = "Agregar al Carrito";
+                  addBtn.classList.remove("opacity-50");
+                  addBtn.removeAttribute("disabled");
+                }
+              }
+            }
+
+            // initial update
+            updateStockUI();
+            // when adding to cart, ensure not exceeding stock and decrement shown stock locally
+            if (addBtn) {
+              addBtn.addEventListener("click", (ev) => {
+                // if disabled, no-op
+                if (addBtn.hasAttribute("disabled")) return;
+                const qty =
+                  Number(document.getElementById("cantidad").value) || 0;
+                if (qty <= 0) return;
+                if (qty > currentStock) {
+                  const errorMsg = document.createElement("div");
+                  errorMsg.textContent = "No hay stock suficiente";
+                  errorMsg.className = "text-red-500 text-sm mt-2";
+                  addBtn.parentNode.appendChild(errorMsg);
+                  setTimeout(() => errorMsg.remove(), 3000);
+                  return;
+                }
+                currentStock = Math.max(0, currentStock - qty);
+                updateStockUI();
+                // increment cart counter handled elsewhere; keep existing behavior
+              });
+            }
           } catch (e) {
             console.error("Error parsing JSON response:", e);
           }
@@ -118,9 +235,9 @@ function loadProductDetail() {
     xhr.open(
       "GET",
       `/student024/Shop/backend/endpoints/product_detail/show_product_detail.php?productId=${encodeURIComponent(
-        productId
+        productId,
       )}`,
-      true
+      true,
     );
     xhr.send();
   } catch (error) {
@@ -135,7 +252,6 @@ function cargarReviews() {
   xmlhttp.onreadystatechange = function () {
     if (this.readyState == 4 && this.status == 200) {
       try {
-        
         var response = JSON.parse(this.responseText);
         if (response) {
           // Normalize different response shapes to an array before rendering
@@ -151,8 +267,9 @@ function cargarReviews() {
   };
   xmlhttp.open(
     "GET",
-    "/student024/Shop/backend/endpoints/product_detail/show_reviews.php?productId=" + encodeURIComponent(productId),
-    true
+    "/student024/Shop/backend/endpoints/product_detail/show_reviews.php?productId=" +
+      encodeURIComponent(productId),
+    true,
   );
   xmlhttp.send();
 }
@@ -169,19 +286,19 @@ function renderReviews(reviews) {
                   review.full_name
                 }</h4>
                 <span class="text-sm text-gray-500">Date: ${new Date(
-                  review.created_at
+                  review.created_at,
                 ).toLocaleDateString()}</span>
                 <span class="flex">
                 `;
-                for (let i = 0; i < review.review_rating; i++) {
-                review_content += `<img class="w-5 h-5" src="/student024/Shop/assets/logos/estrella_con_relleno.png" alt="estrella rellena">`;
-                }
-                for (let i = review.review_rating; i < 5; i++) {
-                review_content += `<img class="w-5 h-5" src="/student024/Shop/assets/logos/estrella_sin_relleno.png" alt="estrella vacía">`;
-                }
-                review_content += `</span>`;
+    for (let i = 0; i < review.review_rating; i++) {
+      review_content += `<img class="w-5 h-5" src="/student024/Shop/assets/logos/estrella_con_relleno.png" alt="estrella rellena">`;
+    }
+    for (let i = review.review_rating; i < 5; i++) {
+      review_content += `<img class="w-5 h-5" src="/student024/Shop/assets/logos/estrella_sin_relleno.png" alt="estrella vacía">`;
+    }
+    review_content += `</span>`;
 
-                review_content += `<p>${review.review_content}</p>
+    review_content += `<p>${review.review_content}</p>
             </div>`;
     reviewsContainer.innerHTML += review_content;
   });

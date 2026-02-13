@@ -59,15 +59,66 @@ $('#untoggle-text-size').on('click', function() {
     $(this).attr('aria-pressed', settings.fontsize > 1);
 });
 
+$('#toggle-interlineado').on('click', function() {
+    settings.lineheight = Math.min(3, +(settings.lineheight + 0.1).toFixed(2));
+    aplicarCambios();
+    $(this).attr('aria-pressed', settings.lineheight > 1.5);
+});
+
+$('#untoggle-interlineado').on('click', function() {
+    settings.lineheight = Math.max(1, +(settings.lineheight - 0.1).toFixed(2));
+    aplicarCambios();
+    $(this).attr('aria-pressed', settings.lineheight > 1.5);
+});
+
+$('#toggle-espacio-palabras').on('click', function() {
+    settings.wordSpace = Math.min(3, +(settings.wordSpace + 0.1).toFixed(2));
+    aplicarCambios();
+    $(this).attr('aria-pressed', settings.wordSpace > 0);
+});
+
+$('#untoggle-espacio-palabras').on('click', function() {
+    settings.wordSpace = Math.max(0, +(settings.wordSpace - 0.1).toFixed(2));
+    aplicarCambios();
+    $(this).attr('aria-pressed', settings.wordSpace > 0);
+});
+
+$('#toggle-espacio-letras').on('click', function() {
+    settings.letterSpace = Math.min(3, +(settings.letterSpace + 0.1).toFixed(2));
+    aplicarCambios();
+    $(this).attr('aria-pressed', settings.letterSpace > 0);
+});
+
+$('#untoggle-espacio-letras').on('click', function() {
+    settings.letterSpace = Math.max(0, +(settings.letterSpace - 0.1).toFixed(2));
+    aplicarCambios();
+    $(this).attr('aria-pressed', settings.letterSpace > 0);
+});
+
+$('#toggle-contrast').on('click', function() {
+    if (settings.contrast === 'normal') {
+        settings.contrast = 'high';
+        $('body').addClass('contrast-clear').removeClass('contrast-dark');
+    } else {
+        settings.contrast = 'normal';
+        $('body').removeClass('contrast-clear contrast-dark');
+    }
+});
+
+$('#close-accessibility').on('click', function() {
+    accessibilityMenu.removeClass('active');
+});
+
 $('#reset-accessibility').on('click', function() {
-    $('body').removeClass('dark-mode clear-mode saturation-high saturation-low grayscale text-size-large');
+    $('body').removeClass('dark-mode clear-mode saturation-high saturation-low grayscale text-size-large contrast-clear contrast-dark');
     $('.accessibility-option').attr('aria-pressed', 'false');
     settings = {
         fontsize: 1,
         lineheight: 1.5,
         wordSpace: 0,
         letterSpace: 0,
-        contrast: 'normal'
+        contrast: 'normal',
+        saturation: 'normal'
     };
     aplicarCambios();
 });
@@ -86,6 +137,6 @@ function aplicarCambios() {
         'line-height': settings.lineheight,
         'word-spacing': settings.wordSpace + 'em',
         'letter-spacing': settings.letterSpace + 'em',
-        'filter': filterValue
+        'filter': filterValue,
     });
  }

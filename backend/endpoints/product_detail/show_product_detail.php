@@ -29,16 +29,20 @@ try {
     if (mysqli_num_rows($result) > 0) {
         $row = mysqli_fetch_assoc($result);
 
-        // available sizes
-        $sizes_sql = "SELECT size FROM `024_product_sizes` WHERE product_id = $product_id";
+        // available sizes with stock
+        $sizes_sql = "SELECT size, stock FROM `024_product_sizes` WHERE product_id = $product_id";
         $sizes_result = mysqli_query($conn, $sizes_sql);
         if (!$sizes_result) {
             throw new Exception('Error consultando tallas: ' . mysqli_error($conn));
         }
         
         $available_sizes = [];
+        $total_stock = 0;
         while ($size_row = mysqli_fetch_assoc($sizes_result)) {
-            $available_sizes[] = $size_row['size'];
+            $size = $size_row['size'];
+            $stock = isset($size_row['stock']) ? (int)$size_row['stock'] : 0;
+            $available_sizes[] = ['size' => $size, 'stock' => $stock];
+            $total_stock += $stock;
         }
 
         // product materials
@@ -61,7 +65,8 @@ try {
             'product_name' => $row['name'],
             'price' => floatval($row['price']),
             'description' => $row['long_description'],
-            'available_sizes' => $available_sizes,
+            'sizes' => $available_sizes,
+            'total_stock' => $total_stock,
             'materials' => $materials
         ];
     } else {

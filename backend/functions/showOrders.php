@@ -27,7 +27,7 @@ function showOrders($order_group)
     $status = $first['status'];
     $method_name = $first['payment_method'];
     $address = $first['delivery_address'];
-    $image_url = $first['image_url'] ?? '';
+    $image_url = json_decode($first['image_url'] ?? '');
     // Display order information
     echo "<div class='order-card'>";
     echo "<h3>Order ID: " . $order_id . "</h3>";
@@ -49,7 +49,7 @@ function showOrders($order_group)
             echo "<img src='/student024/Shop/assets/imagenes/foto" . htmlspecialchars($product['product_id'], ENT_QUOTES, 'UTF-8') . ".jpg' alt='" . htmlspecialchars($product['product_name'], ENT_QUOTES, 'UTF-8') . "' class='w-32 h-32 object-cover mb-2'></img>";
         } else {
             // For products from other suppliers, you may want to display a placeholder image or skip the image altogether
-            echo "<img src='" . $image_url . "' alt='Product Image Not Available' class='w-32 h-32 object-cover mb-2'></img>";
+            echo "<img src='" . htmlspecialchars($image_url, ENT_QUOTES, 'UTF-8') . "' alt='Product Image Not Available' class='w-32 h-32 object-cover mb-2'></img>";
         }
         echo "<p>Quantity: " . $product['quantity'] . "</p>";
         echo "<p>Price: " . $product['price'] . "€</p>";

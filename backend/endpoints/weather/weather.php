@@ -4,9 +4,9 @@ include $_SERVER['DOCUMENT_ROOT'].'/student024/Shop/backend/functions/write_log.
 include $_SERVER['DOCUMENT_ROOT'].'/student024/Shop/backend/functions/write_logJSON.php';
             
 
-$url_current = 'https://dataservice.accuweather.com/currentconditions/v1/305482?apikey=zpka_9f0db2f848fb41b49876f21bf448b754_62f8e394&details=true';
+$url_current = 'https://dataservice.accuweather.com/currentconditions/v1/305482?apikey=zpka_ae500aff75d84318aaa85c64a4594ab7_6393cd36&details=true&metric=true';
 
-$url_forecast = 'https://dataservice.accuweather.com/forecasts/v1/daily/5day/305482?apikey=zpka_9f0db2f848fb41b49876f21bf448b754_62f8e394&details=true&metric=true';
+$url_forecast = 'https://dataservice.accuweather.com/forecasts/v1/daily/5day/305482?apikey=zpka_ae500aff75d84318aaa85c64a4594ab7_6393cd36&details=true&metric=true';
 $json_data_current = file_get_contents($url_current);
 $data_current = json_decode($json_data_current, true);
 $json_data_forecast = file_get_contents($url_forecast);

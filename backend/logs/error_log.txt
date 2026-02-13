@@ -23,3 +23,28 @@
 [2026-02-10 19:16:54] DEBUG checkout.php start - DOCUMENT_ROOT=C:/wamp64/www HTTP_HOST=localhost
 [2026-02-10 19:17:30] DEBUG checkout.php start - DOCUMENT_ROOT=C:/wamp64/www HTTP_HOST=localhost
 [2026-02-10 19:18:55] DEBUG checkout.php start - DOCUMENT_ROOT=C:/wamp64/www HTTP_HOST=localhost
+[CHECKOUT] 2026-02-11 15:39:12 - METHOD=POST HOST=localhost URI=/student024/Shop/backend/views/checkout.php
+[CHECKOUT POST DATA] {"total_items":"5","cart_total":"424.96","cart_data":"[{\"shopping_cart_id\":\"924\",\"customer_id\":\"11\",\"product_id\":\"1\",\"quantity\":\"1\",\"size\":\"XS\"},{\"shopping_cart_id\":\"925\",\"customer_id\":\"11\",\"product_id\":\"2\",\"quantity\":\"1\",\"size\":\"XS\"},{\"shopping_cart_id\":\"921\",\"customer_id\":\"11\",\"product_id\":\"23\",\"quantity\":\"1\",\"size\":\"L,XXL\"},{\"shopping_cart_id\":\"922\",\"customer_id\":\"11\",\"product_id\":\"24\",\"quantity\":\"1\",\"size\":\"L,XXL\"},{\"shopping_cart_id\":\"923\",\"customer_id\":\"11\",\"product_id\":\"26\",\"quantity\":\"1\",\"size\":\"L,XXL\"}]"}
+[2026-02-11 15:39:16] DEBUG checkout.php start - DOCUMENT_ROOT=C:/wamp64/www HTTP_HOST=localhost
+[CHECKOUT] 2026-02-11 15:51:06 - METHOD=POST HOST=localhost URI=/student024/Shop/backend/views/checkout.php
+[CHECKOUT POST DATA] {"total_items":"5","cart_total":"186.47","cart_data":"[{\"shopping_cart_id\":\"926\",\"customer_id\":\"11\",\"product_id\":\"8\",\"quantity\":\"1\",\"size\":\"XS\"},{\"shopping_cart_id\":\"927\",\"customer_id\":\"11\",\"product_id\":\"13\",\"quantity\":\"1\",\"size\":\"XS\"},{\"shopping_cart_id\":\"928\",\"customer_id\":\"11\",\"product_id\":\"14\",\"quantity\":\"1\",\"size\":\"XS\"},{\"shopping_cart_id\":\"929\",\"customer_id\":\"11\",\"product_id\":\"23\",\"quantity\":\"1\",\"size\":\"40\"},{\"shopping_cart_id\":\"930\",\"customer_id\":\"11\",\"product_id\":\"31\",\"quantity\":\"1\",\"size\":\"S\"}]"}
+[2026-02-11 15:51:24] DEBUG checkout.php start - DOCUMENT_ROOT=C:/wamp64/www HTTP_HOST=localhost
+[2026-02-11 15:53:18] DEBUG checkout.php start - DOCUMENT_ROOT=C:/wamp64/www HTTP_HOST=localhost
+[CHECKOUT] 2026-02-12 01:15:39 - METHOD=POST HOST=localhost URI=/student024/Shop/backend/views/checkout.php
+[CHECKOUT POST DATA] {"total_items":"2","cart_total":"209.94","cart_data":"[{\"shopping_cart_id\":\"885\",\"customer_id\":\"11\",\"product_id\":\"4\",\"quantity\":\"1\",\"size\":\"M\"},{\"shopping_cart_id\":\"898\",\"customer_id\":\"11\",\"product_id\":\"7\",\"quantity\":\"5\",\"size\":\"L\"}]"}
+[2026-02-12 01:15:43] DEBUG checkout.php start - DOCUMENT_ROOT=C:/wamp64/www HTTP_HOST=localhost
+[2026-02-12 01:17:51] DEBUG checkout.php start - DOCUMENT_ROOT=C:/wamp64/www HTTP_HOST=localhost
+[2026-02-12 01:17:53] DEBUG checkout.php start - DOCUMENT_ROOT=C:/wamp64/www HTTP_HOST=localhost
+[2026-02-12 01:21:54] DEBUG checkout.php start - DOCUMENT_ROOT=C:/wamp64/www HTTP_HOST=localhost
+[CHECKOUT] 2026-02-12 19:51:54 - METHOD=POST HOST=localhost URI=/student024/Shop/backend/views/checkout.php
+[CHECKOUT POST DATA] {"total_items":"4","cart_total":"544.97","cart_data":"[{\"shopping_cart_id\":\"925\",\"customer_id\":\"11\",\"product_id\":\"28\",\"quantity\":\"2\",\"size\":\"40\"},{\"shopping_cart_id\":\"926\",\"customer_id\":\"11\",\"product_id\":\"29\",\"quantity\":\"1\",\"size\":\"40\"},{\"shopping_cart_id\":\"923\",\"customer_id\":\"11\",\"product_id\":\"30\",\"quantity\":\"1\",\"size\":\"40\"},{\"shopping_cart_id\":\"924\",\"customer_id\":\"11\",\"product_id\":\"31\",\"quantity\":\"1\",\"size\":\"40\"}]"}
+[2026-02-12 19:52:02] DEBUG checkout.php start - DOCUMENT_ROOT=C:/wamp64/www HTTP_HOST=localhost
+[CHECKOUT] 2026-02-12 19:59:07 - METHOD=POST HOST=localhost URI=/student024/Shop/backend/views/checkout.php
+[CHECKOUT POST DATA] {"total_items":"3","cart_total":"349.98","cart_data":"[{\"shopping_cart_id\":\"927\",\"customer_id\":\"11\",\"product_id\":\"28\",\"quantity\":\"1\",\"size\":\"40\"},{\"shopping_cart_id\":\"928\",\"customer_id\":\"11\",\"product_id\":\"29\",\"quantity\":\"1\",\"size\":\"40\"},{\"shopping_cart_id\":\"929\",\"customer_id\":\"11\",\"product_id\":\"31\",\"quantity\":\"1\",\"size\":\"40\"}]"}
+[2026-02-12 19:59:12] DEBUG checkout.php start - DOCUMENT_ROOT=C:/wamp64/www HTTP_HOST=localhost
+[2026-02-12 19:59:24] DEBUG checkout.php start - DOCUMENT_ROOT=C:/wamp64/www HTTP_HOST=localhost
+[CHECKOUT] 2026-02-12 20:01:13 - METHOD=POST HOST=localhost URI=/student024/Shop/backend/views/checkout.php
+[CHECKOUT POST DATA] {"total_items":"1","cart_total":"94.99","cart_data":"[{\"shopping_cart_id\":\"930\",\"customer_id\":\"11\",\"product_id\":\"31\",\"quantity\":\"1\",\"size\":\"L,XXL\"}]"}
+[CHECKOUT] 2026-02-12 20:04:39 - METHOD=POST HOST=localhost URI=/student024/Shop/backend/views/checkout.php
+[CHECKOUT POST DATA] {"total_items":"1","cart_total":"94.99","cart_data":"[{\"shopping_cart_id\":\"930\",\"customer_id\":\"11\",\"product_id\":\"31\",\"quantity\":\"1\",\"size\":\"L,XXL\"}]"}
+[2026-02-12 20:04:44] DEBUG checkout.php start - DOCUMENT_ROOT=C:/wamp64/www HTTP_HOST=localhost
