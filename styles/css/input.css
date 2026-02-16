@@ -30,6 +30,14 @@
         @apply font-secondary bg-azul-oscuro text-beige;
     }
 
+    .dark-mode{
+        @apply bg-azul-oscuro text-beige;
+    }
+
+    .light-mode{
+        @apply bg-beige text-azul-oscuro;
+    }
+
     /* Encabezados: usar la fuente principal para todos los títulos */
     h1, h2, h3, h4, h5, h6{
         @apply font-primary;

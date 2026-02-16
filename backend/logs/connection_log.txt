@@ -37,3 +37,6 @@
 [2026-02-12 01:15:33] User number11 alanR logged in
 [2026-02-12 11:47:20] User number11 alanR logged in
 [2026-02-13 15:35:01] User number11 alanR logged in
+[2026-02-16 11:21:05] Failed login attempt for username AlanR
+[2026-02-16 11:21:14] Failed login attempt for username AlanR
+[2026-02-16 11:21:25] User number11 alanR logged in

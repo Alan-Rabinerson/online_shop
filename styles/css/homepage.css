@@ -46,6 +46,16 @@ body.grayscale {
     filter: grayscale(100%);
 }
 
+body.dark-mode {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+}
+
+body.light-mode {
+    background-color: var(--text-color);
+    color: var(--bg-color);
+}
+
 h1, h2, h3, h4, h5, h6 {
     font-family: 'Montserrat', sans-serif;
     font-weight: 700;

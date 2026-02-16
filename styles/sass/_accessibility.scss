@@ -1,0 +1,210 @@
+@use 'sass:color';
+@use '_variables' as *;
+@use '_mixins' as *;
+
+/* 
+   Estilos para el botón y menú de accesibilidad
+*/
+// Variables específicas de accesibilidad
+$accessibility-btn-bg: #000;
+$accessibility-btn-color: #fff;
+$accessibility-btn-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+$accessibility-focus-color: #ffd54f;
+$accessibility-menu-border: 2px solid $color-secundario;
+
+/* Botón de accesibilidad */
+#accessibility-btn {
+    position: fixed;
+    bottom: 1rem;
+    left: 1rem;
+    z-index: 9999;
+    background: $accessibility-btn-bg;
+    color: $accessibility-btn-color;
+    border-radius: 999px;
+    padding: 0.5rem 0.75rem;
+    border: none;
+    cursor: pointer;
+    box-shadow: $accessibility-btn-shadow;
+    font-weight: 600;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    img {
+        width: 20px;
+        height: 20px;
+        vertical-align: middle;
+    }
+
+    &:hover {
+        transform: scale(1.05);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+    }
+
+    &:focus {
+        outline: 3px solid $accessibility-focus-color;
+        outline-offset: 2px;
+    }
+}
+
+/* Menú de accesibilidad */
+.accessibility-menu {
+    position: fixed;
+    top: 3.5rem;
+    right: 1em;
+    background: $color-fondo;
+    border: $accessibility-menu-border;
+    border-radius: 8px;
+    padding: 1rem;
+    display: none;
+    flex-direction: column;
+    gap: 0.75rem;
+    z-index: 99999;
+    max-width: 500px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+
+    &.active {
+        display: flex;
+    }
+
+    h2 {
+        font-size: 1.2rem;
+        color: $color-texto;
+        margin: 0;
+    }
+}
+
+/* Header del menú de accesibilidad */
+.accessibility-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid rgba($color-secundario, 0.3);
+
+    button#close-accessibility {
+        background: transparent;
+        color: $color-texto;
+        border: none;
+        font-size: 1.2rem;
+        cursor: pointer;
+        padding: 0.25rem;
+        transition: transform 0.2s ease;
+
+        &:hover {
+            transform: scale(1.1);
+        }
+
+        img {
+            width: 24px;
+            height: 24px;
+            filter: brightness(0) invert(1);
+        }
+    }
+}
+
+/* Contenedor de opciones */
+.accessibility-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+/* Opciones individuales de accesibilidad */
+.accessibility-option {
+    background: transparent;
+    color: $color-texto;
+    padding: 0.5rem 0.75rem;
+    border: 1px solid $color-secundario;
+    border-radius: 5px;
+    font-weight: 500;
+    text-align: left;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.2s ease;
+
+    img {
+        width: 20px;
+        height: 20px;
+        vertical-align: middle;
+    }
+
+    &:hover {
+        background-color: $color-secundario;
+        transform: scale(1.05);
+        color: $color-fondo;
+    }
+
+    &:focus {
+        outline: 2px solid $accessibility-focus-color;
+        outline-offset: 2px;
+    }
+
+    &#reset-accessibility {
+        background-color: $color-primario;
+        color: $color-texto;
+        width: 100%;
+        justify-content: center;
+        font-weight: 600;
+
+        &:hover {
+            background-color: color.adjust($color-primario, $lightness: -10%);
+        }
+    }
+}
+
+/* Responsive - Tablet y móvil */
+@media screen and (max-width: 768px) {
+    .accessibility-menu {
+        right: 0.5rem;
+        left: 0.5rem;
+        max-width: calc(100% - 1rem);
+        top: 4rem;
+    }
+
+    #accessibility-btn {
+        bottom: 0.75rem;
+        left: 0.75rem;
+        padding: 0.4rem 0.6rem;
+        
+        img {
+            width: 18px;
+            height: 18px;
+        }
+    }
+}
+
+/* Estados de accesibilidad aplicados al body */
+body {
+    transition: background-color 0.3s ease, color 0.3s ease, filter 0.3s ease;
+
+    // Dark Mode - Invierte los colores
+    &.dark-mode {
+        background-color: $color-fondo;
+        color: $color-texto;
+    }
+
+    // Light Mode - Colores claros y alto contraste
+    &.light-mode {
+        background-color: $color-texto;
+        color: $color-fondo;
+    }
+
+    // High Saturation
+    &.saturation-high {
+        filter: saturate(2);
+    }
+
+    // Low Saturation
+    &.saturation-low {
+        filter: saturate(0.5);
+    }
+
+    // Grayscale
+    &.grayscale {
+        filter: grayscale(1);
+    }
+}

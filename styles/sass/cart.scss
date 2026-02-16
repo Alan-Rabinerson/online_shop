@@ -1,4 +1,6 @@
-@import "_common";
+@use 'sass:color';
+@use "_common" as *;
+@use "_accessibility";
 
 
 .carrito-header {
@@ -186,7 +188,8 @@
     }
     
     button {
-      @include boton(auto, $color-secundario, $color-texto, lighten($color-secundario, 10%), 8px);
+      $btn-hover-color: color.adjust($color-secundario, $lightness: 10%);
+      @include boton(auto, $color-secundario, $color-texto, $btn-hover-color, 8px);
       min-width: 32px;
       transition: all 0.2s ease;
       box-shadow: 0 2px 8px rgba($color-secundario, 0.3);
@@ -285,9 +288,11 @@ main {
     margin-top: 1rem;
 
     &:hover {
+      $hover-primario: color.adjust($color-primario, $lightness: 5%);
+      $hover-accent: color.adjust($color-accent, $lightness: 5%);
       transform: translateY(-3px);
       box-shadow: 0 8px 28px rgba($color-primario, 0.6);
-      background: linear-gradient(135deg, lighten($color-primario, 5%) 0%, lighten($color-accent, 5%) 100%);
+      background: linear-gradient(135deg, $hover-primario 0%, $hover-accent 100%);
     }
 
     &:active { transform: translateY(0); }

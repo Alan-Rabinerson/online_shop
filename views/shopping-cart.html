@@ -1,30 +1,35 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../styles/sass/cart.css">
-    <link rel="stylesheet" href="https://code.jquery.com/ui/1.14.1/themes/base/jquery-ui.css">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../styles/sass/cart.css" />
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.14.1/themes/base/jquery-ui.css" />
     <title>Shopping Cart</title>
-    
 </head>
+
 <body>
     <header>
         <div class="logo">
-            <img class="w-63" src="/student024/Shop/assets/logos/logo_sin_fondo_rectangular.png" alt="logo Concrete Jungle">
+            <img class="w-63" src="/student024/Shop/assets/logos/logo_sin_fondo_rectangular.png"
+                alt="logo Concrete Jungle" />
         </div>
-        
+
         <!-- Menú hamburguesa -->
         <div id="mobile-menu" class="mobile-menu">
-
-            <button class="menu-toggle" ><img src="../assets/logos/icon-menu.png" alt="icono menú"></button>
-            <ul class="menu-links " >
-                <button id="close-menu" class="lg:hidden"><img src="../assets/logos/cerrar-menu.png" alt="cerrar menú"></button>
-                 <!-- Buscador -->
-                  <div class="search-bar">
-                    <input type="search" class="form-control" placeholder="Buscar productos o categorías..." >
+            <button class="menu-toggle" aria-label="Abrir menú">
+                <img src="../assets/logos/icon-menu.png" alt="icono menú" />
+            </button>
+            <ul class="menu-links">
+                <button id="close-menu" class="lg:hidden" aria-label="cerrar menú">
+                    <img src="../assets/logos/cerrar-menu.png" alt="cerrar menú" />
+                </button>
+                <!-- Buscador -->
+                <div class="search-bar">
+                    <input type="search" class="form-control" placeholder="Buscar productos o categorías..." aria-label="buscador"/>
                     <select aria-label="Filtrar por categoría">
-                        <option value="">Todas las categorías</option> 
+                        <option value="">Todas las categorías</option>
                         <option value="camisetas">Camisetas</option>
                         <option value="sudaderas">Sudaderas</option>
                         <option value="pantalones">Pantalones</option>
@@ -32,53 +37,125 @@
                         <option value="accesorios">Accesorios</option>
                     </select>
                 </div>
-                <li><a class="" href="../index.html">Inicio</a></li>
-                <li><a class="" href="#novedades">Novedades</a></li>
-                <li><a class="" href="#hombre">Hombre</a></li>
-                <li><a class="" href="#mujer">Mujer</a></li>
-                <li><a class="" href="../backend/index.php">Administración</a></li>
-                <li><a class="" href="#ofertas">Ofertas</a></li>
-                <li><button class="login" id="login-btn" onclick="location.href='../backend/login/login.php'">Login</button></li>
+                
+                <li><a class="" href="../index.html" aria-roledescription="Ir a la página de inicio">Inicio</a></li>
+                <li><a class="" href="#novedades" aria-roledescription="Ir a la sección de novedades">Novedades</a></li>
+                <li><a class="" href="#hombre" aria-roledescription="Ir a la sección de hombre">Hombre</a></li>
+                <li><a class="" href="#mujer" aria-roledescription="Ir a la sección de mujer">Mujer</a></li>
+                <li><a class="" href="../backend/index.php" aria-roledescription="Ir a la página de administración">Administración</a></li>
+                <li><a class="" href="#ofertas" aria-roledescription="Ir a la sección de ofertas">Ofertas</a></li>
+                <li>
+                    <button class="login" id="login-btn" onclick="location.href = '../backend/login/login.php'"
+                        aria-label="Iniciar sesión">
+                        Login
+                    </button>
+                </li>
+                
             </ul>
         </div>
     </header>
-    <main style="position:relative;">
-        <button id="accessibility-btn" class="accessibility-btn" aria-label="Accesibilidad" title="Accesibilidad"><img src="https://remotehost.es/student024/Shop/assets/logos/accessibility.svg" alt="Icono de accesibilidad"></button>
-        
+    <main style="position: relative">
+        <!-- Botón de accesibilidad -->
+        <button id="accessibility-btn" aria-label="Accesibilidad" title="Accesibilidad">
+            <img src="../assets/logos/accessibility.svg" alt="Icono de accesibilidad" />
+        </button>
+
+        <!-- Menú de accesibilidad -->
+        <div class="accessibility-menu">
+            <div class="accessibility-header">
+                <h2>Opciones de Accesibilidad</h2>
+                <button id="close-accessibility" aria-label="Cerrar menú de accesibilidad">
+                    <img src="../assets/logos/cerrar-menu.png" alt="Icono cerrar menú" />
+                </button>
+            </div>
+            <div class="accessibility-options">
+                <button id="toggle-light-mode" class="accessibility-option" aria-pressed="false">
+                    <img src="../assets/logos/light_mode.png" alt="icono modo claro" />Modo Claro
+                </button>
+                <button id="toggle-dark-mode" class="accessibility-option" aria-pressed="false">
+                    <img src="../assets/logos/dark_mode.png" alt="icono modo oscuro" />
+                    Modo Oscuro
+                </button>
+                <button id="toggle-saturation-high" class="accessibility-option" aria-pressed="false">
+                    <img src="../assets/logos/subir_saturacion.png" alt="icono saturación alta" />Saturación Alta
+                </button>
+                <button id="toggle-saturation-low" class="accessibility-option" aria-pressed="false">
+                    <img src="../assets/logos/bajar_saturacion.png" alt="icono saturación baja" />Saturación Baja
+                </button>
+                <button id="toggle-grayscale" class="accessibility-option" aria-pressed="false">
+                    <img src="../assets/logos/greyscale.png" alt="greyscale logo" />Escala de Grises
+                </button>
+                <button id="toggle-text-size" class="accessibility-option" aria-pressed="false">
+                    <img src="../assets/logos/increase_font.png" alt="icono aumentar tamaño de texto" />Aumentar Tamaño
+                    de Texto
+                </button>
+                <button id="untoggle-text-size" class="accessibility-option" aria-pressed="false">
+                    <img src="../assets/logos/decrease_font.png" alt="icono disminuir tamaño de texto" />Disminuir
+                    Tamaño de Texto
+                </button>
+                <button id="toggle-interlineado" class="accessibility-option" aria-pressed="false">
+                    <img src="../assets/logos/interlineado.png" alt="icono aumentar interlineado" />Aumentar
+                    Interlineado
+                </button>
+                <button id="untoggle-interlineado" class="accessibility-option" aria-pressed="false">
+                    <img src="../assets/logos/interlineado.png" alt="icono disminuir interlineado" />Disminuir
+                    Interlineado
+                </button>
+                <button id="toggle-espacio-palabras" class="accessibility-option" aria-pressed="false">
+                    <img src="../assets/logos/word_spacing.png" alt="icono espaciado en palabras" />Aumentar Espacio
+                    entre Palabras
+                </button>
+                <button id="untoggle-espacio-palabras" class="accessibility-option" aria-pressed="false">
+                    <img src="../assets/logos/word_spacing.png" alt="icono espaciado en palabras" />Disminuir Espacio
+                    entre Palabras
+                </button>
+                <button id="toggle-espacio-letras" class="accessibility-option" aria-pressed="false">
+                    <img src="../assets/logos/letter_spacing.png" alt="icono espaciado en letras" />Aumentar Espacio
+                    entre Letras
+                </button>
+                <button id="untoggle-espacio-letras" class="accessibility-option" aria-pressed="false">
+                    <img src="../assets/logos/letter_spacing.png" alt="icono espaciado en letras" />Disminuir Espacio
+                    entre Letras
+                </button>
+                <button id="reset-accessibility" class="accessibility-option" aria-pressed="false">
+                    <img src="../assets/logos/reset.png" alt="icono reiniciar ajustes de accesibilidad" />Reiniciar
+                    Ajustes de Accesibilidad
+                </button>
+            </div>
+        </div>
+
         <!-- Header del Carrito -->
         <div class="carrito-header">
             <h2>Tu Carrito</h2>
         </div>
         <!-- Modal del Carrito -->
         <div class="carrito" id="carrito">
-            
-            
-    
             <!-- Lista de Items -->
             <ul class="carrito-items">
                 <!-- Fila de Encabezados (solo visible en tablet+) -->
-    
             </ul>
-    
+
             <!-- Footer del Carrito -->
             <div class="carrito-footer">
                 <p class="total-amount">Total: 99,97 €</p>
                 <form action="../backend/views/checkout.php" method="POST">
-                    <input type="hidden" name="total_items" id="total_items" value="0">
-                    <input type="hidden" name="cart_data" id="cart_data" value="">
-                    <input type="hidden" name="cart_total" id="cart_total" value="0">
-                    <button class="btn-checkout" type="submit">Proceder al pago</button>
+                    <input type="hidden" name="total_items" id="total_items" value="0"  aria-hidden="true" aria-label="total items"/>
+                    <input type="hidden" name="cart_data" id="cart_data" aria-label="Datos del carrito" aria-hidden="true"/>
+                    <input type="hidden" name="cart_total" id="cart_total" aria-label="Total del carrito" value="0" aria-hidden="true"/>
+                    <button class="btn-checkout" type="submit" aria-label="Proceder al pago">Proceder al pago</button>
                 </form>
             </div>
         </div>
     </main>
     <footer>
-        <div class="footer-content ">
+        <div class="footer-content">
             <div class="footer-section">
                 <h3>Sobre Nosotros</h3>
-                <p class="mb-2">Concrete Jungle es tu destino para el mejor streetwear urbano.</p>
+                <p class="mb-2">
+                    Concrete Jungle es tu destino para el mejor streetwear urbano.
+                </p>
             </div>
-            
+
             <div class="footer-section">
                 <h3>Contacto</h3>
                 <ul>
@@ -87,25 +164,28 @@
                     <li class="mb-2">Horario: L-V 9:00-18:00</li>
                 </ul>
             </div>
-            
+
             <div class="footer-section">
                 <h3>Síguenos</h3>
                 <div class="social-links">
-                    <a class="social-link" href="#instagram" >IG</a>
-                    <a class="social-link" href="#facebook">FB</a>
-                    <a class="social-link" href="#twitter">TW</a>
-                    <a class="social-link" href="#tiktok">TT</a>
+                    <a class="social-link" href="#instagram" aria-label="Redirección a Instagram">IG</a>
+                    <a class="social-link" href="#facebook" aria-label="Redirección a Facebook">FB</a>
+                    <a class="social-link" href="#twitter" aria-label="Redirección a Twitter">TW</a>
+                    <a class="social-link" href="#tiktok" aria-label="Redirección a TikTok">TT</a>
                 </div>
             </div>
         </div>
-        
-        <div class="footer-bottom ">
+
+        <div class="footer-bottom">
             <p>&copy; 2025 Concrete Jungle. Todos los derechos reservados.</p>
         </div>
     </footer>
 </body>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"
+    integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/ui/1.14.1/jquery-ui.min.js"></script>
+<script src="../JavaScript/accessibility.js"></script>
 <script src="../JavaScript/menu.js"></script>
-<script src="https://code.jquery.com/ui/1.14.1/jquery-ui.min.js"></script>
-<script src="./JavaScript/create_order.js"></script>
-<script src="https://code.jquery.com/ui/1.14.1/jquery-ui.min.js"></script>
+<script src="../JavaScript/create_order.js"></script>
+
 </html>

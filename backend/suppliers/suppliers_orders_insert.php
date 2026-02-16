@@ -34,19 +34,20 @@ $zip_code = isset($zip_code) ? (string) $zip_code : '';
 $province = isset($province) ? (string) $province : '';
 $phone = isset($phone) ? (string) $phone : '';
 $customer_nif = '';
-
-$query_url = $url . '?apikey=' . urlencode($apiKey)
-    . '&product_code=' . urlencode((string) $product_id)
-    . '&product_quantity=' . urlencode((string) $quantity)
-    . '&customer_forename=' . urlencode($first_name)
-    . '&customer_surname=' . urlencode($last_name)
-    . '&customer_email=' . urlencode($customer_email)
-    . '&customer_address=' . urlencode($street)
-    . '&customer_location=' . urlencode($city)
-    . '&customer_zip=' . urlencode($zip_code)
-    . '&customer_country=' . urlencode($province)
-    . '&customer_phone=' . urlencode($phone)
-    . '&customer_nif=' . urlencode($customer_nif);
+$order_json = json_encode(array(
+    'product_code' => $product_id,
+    'product_quantity' => $quantity,
+    'customer_forename' => $first_name,
+    'customer_surname' => $last_name,
+    'customer_email' => $customer_email,
+    'customer_address' => $street,
+    'customer_location' => $city,
+    'customer_zip' => $zip_code,
+    'customer_country' => $province,
+    'customer_phone' => $phone,
+    'customer_nif' => $customer_nif
+));
+$query_url = $url . '?apikey=' . urlencode($apiKey). '&orders_json=' . urlencode($order_json);
 
 $ch = curl_init();
 curl_setopt($ch, CURLOPT_URL, $query_url);

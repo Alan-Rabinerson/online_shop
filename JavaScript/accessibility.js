@@ -1,5 +1,5 @@
 accessibilityButton = $('#accessibility-btn');
-accessibilityMenu = $('.accessibility-menu');
+accessibilityMenu = $('#accessibility-menu, .accessibility-menu');
 settings = {
     fontsize: 1,
     lineheight: 1.5,
@@ -8,19 +8,36 @@ settings = {
     contrast: 'normal'
 }
 accessibilityButton.on('click', function() {
+    // Para producto.html (Tailwind)
+    if (accessibilityMenu.hasClass('hidden')) {
+        accessibilityMenu.removeClass('hidden').addClass('flex');
+    } else {
+        accessibilityMenu.addClass('hidden').removeClass('flex');
+    }
+    // Para shopping-cart.html (SASS)
     accessibilityMenu.toggleClass('active');
 });
 
 // Toggle Dark Mode
 $('#toggle-dark-mode').on('click', function() {
+    // Remove light mode if active
+    $('body').removeClass('light-mode');
+    $('#toggle-light-mode').attr('aria-pressed', 'false');
+    
+    // Toggle dark mode
     $('body').toggleClass('dark-mode');
     $(this).attr('aria-pressed', $('body').hasClass('dark-mode'));
 });
 
-// Toggle Clear Mode
-$('#toggle-clear-mode').on('click', function() {
-    $('body').toggleClass('clear-mode');
-    $(this).attr('aria-pressed', $('body').hasClass('clear-mode'));
+// Toggle Light Mode
+$('#toggle-light-mode').on('click', function() {
+    // Remove dark mode if active
+    $('body').removeClass('dark-mode');
+    $('#toggle-dark-mode').attr('aria-pressed', 'false');
+    
+    // Toggle light mode
+    $('body').toggleClass('light-mode');
+    $(this).attr('aria-pressed', $('body').hasClass('light-mode'));
 });
 
 // Toggle High Saturation
@@ -106,11 +123,16 @@ $('#toggle-contrast').on('click', function() {
 });
 
 $('#close-accessibility').on('click', function() {
+    // Para producto.html (Tailwind)
+    if (accessibilityMenu.hasClass('flex')) {
+        accessibilityMenu.removeClass('flex').addClass('hidden');
+    }
+    // Para shopping-cart.html (SASS)
     accessibilityMenu.removeClass('active');
 });
 
 $('#reset-accessibility').on('click', function() {
-    $('body').removeClass('dark-mode clear-mode saturation-high saturation-low grayscale text-size-large contrast-clear contrast-dark');
+    $('body').removeClass('dark-mode light-mode saturation-high saturation-low grayscale');
     $('.accessibility-option').attr('aria-pressed', 'false');
     settings = {
         fontsize: 1,

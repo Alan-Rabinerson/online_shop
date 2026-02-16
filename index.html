@@ -25,7 +25,7 @@
                 <button id="close-menu"><img src="./assets/logos/cerrar-menu.png" alt="cerrar menú"></button>
                 <!-- Buscador -->
                 <div class="search-bar">
-                    <input type="search" placeholder="Buscar productos o categorías..." >
+                    <input type="search" placeholder="Buscar productos o categorías..." aria-label="categorias">
                     <select aria-label="Filtrar por categoría">
                         <option value="">Todas las categorías</option>
                         <option value="camisetas">Camisetas</option>
@@ -43,7 +43,7 @@
                 <li><a href="#ofertas">Ofertas</a></li>
                 <li><a class="login" href="./backend/login/login.php" id="login-btn">Login</a></li>
                 <li><a href="#carrito">
-                    <button id="sticky-cart" class="sticky-cart carrito-desktop" >
+                    <button id="sticky-cart" class="sticky-cart carrito-desktop" aria-label="Abrir carrito de compras">
                         <img src="./assets/logos/carrito_blanco.png" alt="Icono carrito de compras">
                         <span class="cart-count">2</span>
                     </button>
@@ -62,8 +62,8 @@
                 <button id="close-accessibility" aria-label="Cerrar menú de accesibilidad"><img src="./assets/logos/cerrar-menu.png" alt="Icono cerrar menú"></button>
             </div>
             <div class="accessibility-options">
-                <button id="toggle-contrast" class="accessibility-option" aria-pressed="false"><img src="./assets/logos/contraste_claro.png" alt="icono contraste claro">Contraste Claro</button>
-                <button id="toggle-contrast" class="accessibility-option" aria-pressed="false"><img src="./assets/logos/contraste_oscuro.png" alt="icono contraste oscuro"> Contraste Oscuro</button>
+                <button id="toggle-light-mode" class="accessibility-option" aria-pressed="false"><img src="./assets/logos/light_mode.png" alt="icono contraste claro">Contraste Claro</button>
+                <button id="toggle-dark-mode" class="accessibility-option" aria-pressed="false"><img src="./assets/logos/dark_mode.png" alt="icono contraste oscuro"> Contraste Oscuro</button>
                 <button id="toggle-saturation-high" class="accessibility-option" aria-pressed="false"><img src="./assets/logos/subir_saturacion.png" alt="icono saturación alta">Saturación Alta</button>
                 <button id="toggle-saturation-low" class="accessibility-option" aria-pressed="false"><img src="./assets/logos/bajar_saturacion.png" alt="icono saturación baja">Saturación Baja</button>
                 <button id="toggle-grayscale" class="accessibility-option" aria-pressed="false"><img src="./assets/logos/greyscale.png" alt="greyscale logo">Escala de Grises</button>
@@ -95,11 +95,11 @@
             <h2>Productos Destacados</h2>
             
             <div class="slider-container">
-                <button class="slider-arrow slider-prev" >‹</button>
+                <button class="slider-arrow slider-prev" aria-label="flecha-anterior" >‹</button>
                 <div class="products-slider">
                     <!-- Productos cargados dinámicamente vía AJAX -->
                 </div>
-                <button class="slider-arrow slider-next" >›</button>
+                <button class="slider-arrow slider-next" aria-label="flecha-siguiente" >›</button>
             </div>
         </section>
         
@@ -108,22 +108,22 @@
             <h2>Ofertas Semanales</h2>
             
             <div class="slider-container">
-                <button class="slider-arrow slider-prev" >‹</button>
+                <button class="slider-arrow slider-prev" aria-label="flecha-anterior" >‹</button>
                 <div class="offers-slider">
                     <!-- Ofertas cargadas dinámicamente vía AJAX con descuentos hardcoded -->
                 </div>
-                <button class="slider-arrow slider-next">›</button>
+                <button class="slider-arrow slider-next" aria-label="flecha-siguiente">›</button>
             </div>
         </section>
         <!-- Carrito Sticky (Móvil/Tablet) -->
-        <button id="sticky-cart" class="sticky-cart" >
+        <button id="sticky-cart" class="sticky-cart" aria-label="Abrir carrito de compras">
             <img class="" src="./assets/logos/carrito_blanco.png" alt="Icono carrito de compras">
             <span class="cart-count">2</span>
         </button>
         <div class="carrito sticky bg-transparent bottom-20">
             <div class="carrito-header">
                 <h2>Tu Carrito</h2>
-                <button id="close-cart">×</button>
+                <button id="close-cart" aria-label="Cerrar carrito">×</button>
             </div>
             <div class="carrito-body">
                 <button class="btn-ver-mas">Ver detalles</button>

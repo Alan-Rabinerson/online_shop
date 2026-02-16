@@ -21,10 +21,7 @@
                 <button id="close-menu" class="lg:hidden"><img src="../assets/logos/cerrar-menu.png" alt="cerrar menú"></button>
                  <!-- Buscador -->
                   <div class="search-bar">
-                    <input type="search" class="form-control bg-buscador-fondo" placeholder="Buscar productos o categorías..." >
-                    <button type="button" class="shrink-0 p-2" >
-                        <span></span>
-                    </button>
+                    <input type="search" class="form-control bg-buscador-fondo" placeholder="Buscar productos o categorías..." aria-label="buscador">
                     <select aria-label="Filtrar por categoría">
                         <option value="">Todas las categorías</option> 
                         <option value="camisetas">Camisetas</option>
@@ -38,18 +35,76 @@
                     <img src="../assets/logos/carrito_blanco.png" alt="Icono carrito de compras">
                     <span class="cart-count">2</span>
                 </button>
-                <li><a class=" hover:text-azul-claro hover:underline hover:text-xl" href="../index.html">Inicio</a></li>
-                <li><a class=" hover:text-azul-claro hover:underline hover:text-xl" href="#novedades">Novedades</a></li>
-                <li><a class=" hover:text-azul-claro hover:underline hover:text-xl" href="#hombre">Hombre</a></li>
-                <li><a class=" hover:text-azul-claro hover:underline hover:text-xl" href="#mujer">Mujer</a></li>
-                <li><a class=" hover:text-azul-claro hover:underline hover:text-xl" href="../backend/index.php">Administración</a></li>
-                <li><a class=" hover:text-azul-claro hover:underline hover:text-xl" href="#ofertas">Ofertas</a></li>
-                <li><button class="login boton-rojo" id="login-btn" onclick="location.href='../backend/login/login.php'">Login</button></li>
+                <li><a class=" hover:text-azul-claro hover:underline hover:text-xl" href="../index.html" aria-role="Ir a la página de inicio">Inicio</a></li>
+                <li><a class=" hover:text-azul-claro hover:underline hover:text-xl" href="#novedades" aria-role="Ir a la sección de novedades">Novedades</a></li>
+                <li><a class=" hover:text-azul-claro hover:underline hover:text-xl" href="#hombre" aria-role="Ir a la sección de hombre">Hombre</a></li>
+                <li><a class=" hover:text-azul-claro hover:underline hover:text-xl" href="#mujer" aria-role="Ir a la sección de mujer">Mujer</a></li>
+                <li><a class=" hover:text-azul-claro hover:underline hover:text-xl" href="../backend/index.php" aria-role="Ir a la página de administración">Administración</a></li>
+                <li><a class=" hover:text-azul-claro hover:underline hover:text-xl" href="#ofertas" aria-role="Ir a la sección de ofertas">Ofertas</a></li>
+                <li><button class="login boton-rojo" id="login-btn" onclick="location.href='../backend/login/login.php'" aria-label="boton login">Login</button></li>
             </ul>
         </div>
     </header>
     <main class="p-8 bg-azul-oscuro text-beige relative">
-        <button id="accessibility-btn" class="fixed top-4 right-4 z-50 bg-black text-white rounded-full px-3 py-1 shadow-md font-semibold focus:outline-none focus:ring-4 focus:ring-yellow-300" aria-label="Accesibilidad" title="Accesibilidad"><img src="../assets/logos/accesibility.svg" alt="Icono de accesibilidad"></button>
+        <!-- Botón de accesibilidad con Tailwind -->
+        <button id="accessibility-btn" class="fixed bottom-5 left-4 z-9999 bg-black text-white rounded-full px-3 py-2 shadow-md font-semibold hover:scale-105 hover:shadow-lg focus:outline-none focus:ring-4 focus:ring-yellow-300 transition-all" aria-label="Accesibilidad" title="Accesibilidad">
+            <img src="../assets/logos/accessibility.svg" alt="Icono de accesibilidad" class="w-5 h-5 inline-block">
+        </button>
+        
+        <!-- Menú de accesibilidad con Tailwind -->
+        <div id="accessibility-menu" class="hidden fixed top-14 right-4 bg-azul-oscuro border-2 border-azul-claro rounded-lg p-4 flex-col gap-3 z-99999 max-w-lg shadow-2xl">
+            <div class="flex justify-between items-center pb-2 border-b border-azul-claro/30">
+                <h2 class="text-xl text-beige m-0">Opciones de Accesibilidad</h2>
+                <button id="close-accessibility" class="bg-transparent text-beige border-0 text-xl cursor-pointer p-1 hover:scale-110 transition-transform" aria-label="Cerrar menú de accesibilidad">
+                    <img src="../assets/logos/cerrar-menu.png" alt="Icono cerrar menú" class="w-6 h-6 brightness-0 invert">
+                </button>
+            </div>
+            <div class="flex flex-wrap gap-2">
+                <button id="toggle-light-mode" class="bg-transparent text-beige px-3 py-2 border border-azul-claro rounded-md font-medium text-left cursor-pointer flex items-center gap-2 hover:bg-azul-claro hover:scale-105 hover:text-azul-oscuro focus:outline-none focus:ring-2 focus:ring-yellow-300 focus:ring-offset-2 transition-all" aria-pressed="false">
+                    <img src="../assets/logos/light_mode.png" alt="icono modo claro" class="w-5 h-5">Modo Claro
+                </button>
+                <button id="toggle-dark-mode" class="bg-transparent text-beige px-3 py-2 border border-azul-claro rounded-md font-medium text-left cursor-pointer flex items-center gap-2 hover:bg-azul-claro hover:scale-105 hover:text-azul-oscuro focus:outline-none focus:ring-2 focus:ring-yellow-300 focus:ring-offset-2 transition-all" aria-pressed="false">
+                    <img src="../assets/logos/dark_mode.png" alt="icono modo oscuro" class="w-5 h-5">Modo Oscuro
+                </button>
+                <button id="toggle-saturation-high" class="bg-transparent text-beige px-3 py-2 border border-azul-claro rounded-md font-medium text-left cursor-pointer flex items-center gap-2 hover:bg-azul-claro hover:scale-105 hover:text-azul-oscuro focus:outline-none focus:ring-2 focus:ring-yellow-300 focus:ring-offset-2 transition-all" aria-pressed="false">
+                    <img src="../assets/logos/subir_saturacion.png" alt="icono saturación alta" class="w-5 h-5">Saturación Alta
+                </button>
+                <button id="toggle-saturation-low" class="bg-transparent text-beige px-3 py-2 border border-azul-claro rounded-md font-medium text-left cursor-pointer flex items-center gap-2 hover:bg-azul-claro hover:scale-105 hover:text-azul-oscuro focus:outline-none focus:ring-2 focus:ring-yellow-300 focus:ring-offset-2 transition-all" aria-pressed="false">
+                    <img src="../assets/logos/bajar_saturacion.png" alt="icono saturación baja" class="w-5 h-5">Saturación Baja
+                </button>
+                <button id="toggle-grayscale" class="bg-transparent text-beige px-3 py-2 border border-azul-claro rounded-md font-medium text-left cursor-pointer flex items-center gap-2 hover:bg-azul-claro hover:scale-105 hover:text-azul-oscuro focus:outline-none focus:ring-2 focus:ring-yellow-300 focus:ring-offset-2 transition-all" aria-pressed="false">
+                    <img src="../assets/logos/greyscale.png" alt="greyscale logo" class="w-5 h-5">Escala de Grises
+                </button>
+                <button id="toggle-text-size" class="bg-transparent text-beige px-3 py-2 border border-azul-claro rounded-md font-medium text-left cursor-pointer flex items-center gap-2 hover:bg-azul-claro hover:scale-105 hover:text-azul-oscuro focus:outline-none focus:ring-2 focus:ring-yellow-300 focus:ring-offset-2 transition-all" aria-pressed="false">
+                    <img src="../assets/logos/increase_font.png" alt="icono aumentar tamaño de texto" class="w-5 h-5">Aumentar Tamaño de Texto
+                </button>
+                <button id="untoggle-text-size" class="bg-transparent text-beige px-3 py-2 border border-azul-claro rounded-md font-medium text-left cursor-pointer flex items-center gap-2 hover:bg-azul-claro hover:scale-105 hover:text-azul-oscuro focus:outline-none focus:ring-2 focus:ring-yellow-300 focus:ring-offset-2 transition-all" aria-pressed="false">
+                    <img src="../assets/logos/decrease_font.png" alt="icono disminuir tamaño de texto" class="w-5 h-5">Disminuir Tamaño de Texto
+                </button>
+                <button id="toggle-interlineado" class="bg-transparent text-beige px-3 py-2 border border-azul-claro rounded-md font-medium text-left cursor-pointer flex items-center gap-2 hover:bg-azul-claro hover:scale-105 hover:text-azul-oscuro focus:outline-none focus:ring-2 focus:ring-yellow-300 focus:ring-offset-2 transition-all" aria-pressed="false">
+                    <img src="../assets/logos/interlineado.png" alt="icono aumentar interlineado" class="w-5 h-5">Aumentar Interlineado
+                </button>
+                <button id="untoggle-interlineado" class="bg-transparent text-beige px-3 py-2 border border-azul-claro rounded-md font-medium text-left cursor-pointer flex items-center gap-2 hover:bg-azul-claro hover:scale-105 hover:text-azul-oscuro focus:outline-none focus:ring-2 focus:ring-yellow-300 focus:ring-offset-2 transition-all" aria-pressed="false">
+                    <img src="../assets/logos/interlineado.png" alt="icono disminuir interlineado" class="w-5 h-5">Disminuir Interlineado
+                </button>
+                <button id="toggle-espacio-palabras" class="bg-transparent text-beige px-3 py-2 border border-azul-claro rounded-md font-medium text-left cursor-pointer flex items-center gap-2 hover:bg-azul-claro hover:scale-105 hover:text-azul-oscuro focus:outline-none focus:ring-2 focus:ring-yellow-300 focus:ring-offset-2 transition-all" aria-pressed="false">
+                    <img src="../assets/logos/word_spacing.png" alt="icono espaciado en palabras" class="w-5 h-5">Aumentar Espacio entre Palabras
+                </button>
+                <button id="untoggle-espacio-palabras" class="bg-transparent text-beige px-3 py-2 border border-azul-claro rounded-md font-medium text-left cursor-pointer flex items-center gap-2 hover:bg-azul-claro hover:scale-105 hover:text-azul-oscuro focus:outline-none focus:ring-2 focus:ring-yellow-300 focus:ring-offset-2 transition-all" aria-pressed="false">
+                    <img src="../assets/logos/word_spacing.png" alt="icono espaciado en palabras" class="w-5 h-5">Disminuir Espacio entre Palabras
+                </button>
+                <button id="toggle-espacio-letras" class="bg-transparent text-beige px-3 py-2 border border-azul-claro rounded-md font-medium text-left cursor-pointer flex items-center gap-2 hover:bg-azul-claro hover:scale-105 hover:text-azul-oscuro focus:outline-none focus:ring-2 focus:ring-yellow-300 focus:ring-offset-2 transition-all" aria-pressed="false">
+                    <img src="../assets/logos/letter_spacing.png" alt="icono espaciado en letras" class="w-5 h-5">Aumentar Espacio entre Letras
+                </button>
+                <button id="untoggle-espacio-letras" class="bg-transparent text-beige px-3 py-2 border border-azul-claro rounded-md font-medium text-left cursor-pointer flex items-center gap-2 hover:bg-azul-claro hover:scale-105 hover:text-azul-oscuro focus:outline-none focus:ring-2 focus:ring-yellow-300 focus:ring-offset-2 transition-all" aria-pressed="false">
+                    <img src="../assets/logos/letter_spacing.png" alt="icono espaciado en letras" class="w-5 h-5">Disminuir Espacio entre Letras
+                </button>
+                <button id="reset-accessibility" class="bg-rojo-oscuro text-beige w-full justify-center font-semibold px-3 py-2 border border-azul-claro rounded-md cursor-pointer flex items-center gap-2 hover:bg-rojo-claro focus:outline-none focus:ring-2 focus:ring-yellow-300 focus:ring-offset-2 transition-all" aria-pressed="false">
+                    <img src="../assets/logos/reset.png" alt="icono reiniciar ajustes de accesibilidad" class="w-5 h-5">Reiniciar Ajustes de Accesibilidad
+                </button>
+            </div>
+        </div>
+        
         <h1 class="text-3xl font-bold mb-6">Sudadera Streetwear</h1>
         <div class="product-detail flex flex-col lg:flex-row gap-8">
             <div class="product-images flex flex-col items-center lg:items-start">
@@ -68,9 +123,9 @@
                 <nav class="botones flex items-center justify-center flex-wrap gap-4 md:justify-start">
                     <form action="" class="flex justify-center gap-1">
                         <label for="cantidad" class="font-bold mr-2">Cantidad:</label>
-                        <input type="number" id="cantidad" name="cantidad" value="1" min="1" class="w-16 rounded-md p-1 border border-beige">
-                        <input type="hidden" id="productId" value="1">
-                        <button id="añadir-carrito-btn" class="boton-rojo agregar-carrito add-to-cart-btn">Agregar al Carrito</button>
+                        <input type="number" id="cantidad" name="cantidad" value="1" min="1" class="w-16 rounded-md p-1 border border-beige" aria-label="Seleccionar cantidad"  aria-required="false">
+                        <input type="hidden" id="productId" value="1" aria-label="producto id"  aria-required="false">
+                        <button id="añadir-carrito-btn" class="boton-rojo agregar-carrito add-to-cart-btn" aria-label="agregar al carrito">Agregar al Carrito</button>
                     </form>
                     <button class="boton-rojo ml-4">Comprar Ahora</button>
                 </nav>
@@ -82,21 +137,21 @@
                     <form action=""> 
                         <span class="font-bold">Tallas:</span>
                         <label class="mr-4">
-                            <input type="radio" name="talla" value="S" class="mr-1"> S
+                            <input type="radio" name="talla" value="S" class="mr-1" aria-label="Seleccionar talla S"> S
                         </label>
                         <label class="mr-4">
-                            <input type="radio" name="talla" value="M" class="mr-1"> M
+                            <input type="radio" name="talla" value="M" class="mr-1" aria-label="Seleccionar talla M"> M
                         </label>
                         <label class="mr-4">
-                            <input type="radio" name="talla" value="L" class="mr-1"> L
+                            <input type="radio" name="talla" value="L" class="mr-1" aria-label="Seleccionar talla L"> L
                         </label>
                         <label class="mr-4">
-                            <input type="radio" name="talla" value="XL" class="mr-1"> XL
+                            <input type="radio" name="talla" value="XL" class="mr-1" aria-label="Seleccionar talla XL"> XL
                         </label>
                     </form>
                 </div>
                 <div class="product-description mb-6">
-                    <p class=" mb-4 lg:text-xl">La sudadera "Concrete Wave" está confeccionada pensando en la calle. Su interior cepillado aporta una suavidad térmica ideal para temporadas medias y frías. Presenta un corte ligeramente oversize que favorece la libertad de movimiento y permite llevarla sola o sobre capas. Detalles cuidados como costuras reforzadas, puños acanalados y capucha con cordón regulable elevan la durabilidad y el confort. El logo bordado en el pecho añade un toque sobrio y premium sin perder la identidad streetwear.</p>
+                    <p class="mb-4 lg:text-xl">La sudadera "Concrete Wave" está confeccionada pensando en la calle. Su interior cepillado aporta una suavidad térmica ideal para temporadas medias y frías. Presenta un corte ligeramente oversize que favorece la libertad de movimiento y permite llevarla sola o sobre capas. Detalles cuidados como costuras reforzadas, puños acanalados y capucha con cordón regulable elevan la durabilidad y el confort. El logo bordado en el pecho añade un toque sobrio y premium sin perder la identidad streetwear.</p>
                     <ul class="list-disc list-inside" id="materiales">
                         <h3>Materiales:</h3>
                     </ul>
@@ -139,7 +194,7 @@
             </div> -->
         </section>
         <!-- Botón Sticky Cart (Móvil) -->
-        <button id="sticky-cart-mobile" class="sticky-cart">
+        <button id="sticky-cart-mobile" class="sticky-cart" aria-label="Ver carrito de compras">
             <img src="../assets/logos/carrito_blanco.png" alt="Icono carrito de compras">
             <span class="cart-count">2</span>
         </button>
@@ -151,7 +206,7 @@
             <!-- Header del Carrito -->
             <div class="carrito-header">
                 <h2>Tu Carrito</h2>
-                <button id="close-cart">×</button>
+                <button id="close-cart" aria-label="Cerrar carrito">×</button>
             </div>
     
             <!-- Lista de Items -->
@@ -159,16 +214,16 @@
                 <!-- Los elementos se cargan dinamicamente por lo que por defecto solo se mostrara el mensaje de carrito vacio -->
                 <li class="carrito-vacio text-center text-azul-claro py-8">Tu carrito está vacío.</li>
                 
-                <button class="btn-ver-mas">VER DETALLES</button>
+                <button class="btn-ver-mas" aria-label="Ver detalles del carrito">VER DETALLES</button>
             </ul>
             <!-- Footer del Carrito -->
             <div class="carrito-footer">
                 <p class="total-amount">Total: 99,97 €</p>
                 <form action="../backend/views/checkout.php" method="POST">
-                    <input type="hidden" name="total_items" id="total_items" value="0">
-                    <input type="hidden" name="cart_data" id="cart_data" value="">
-                    <input type="hidden" name="cart_total" id="cart_total" value="0">
-                    <button class="btn-checkout" type="submit">Proceder al pago</button>
+                    <input type="hidden" name="total_items" id="total_items" value="0" aria-hidden="true">
+                    <input type="hidden" name="cart_data" id="cart_data" value="" aria-hidden="true">
+                    <input type="hidden" name="cart_total" id="cart_total" value="0" aria-hidden="true">
+                    <button class="btn-checkout" type="submit" aria-label="Proceder al pago">Proceder al pago</button>
                 </form>
                 
             </div>
@@ -206,11 +261,12 @@
             <p>&copy; 2025 Concrete Jungle. Todos los derechos reservados.</p>
         </div>
     </footer>
-    <script src="../JavaScript/menu.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/ui/1.14.1/jquery-ui.min.js"></script>
+    <script src="../JavaScript/menu.js"></script>
     <script src="../JavaScript/producto.js"></script>
     <script src="../JavaScript/guest.js"></script>
-    <script src="./JavaScript/create_order.js"></script>
-    <script src="https://code.jquery.com/ui/1.14.1/jquery-ui.min.js"></script>
+    <script src="../JavaScript/create_order.js"></script>
+    <script src="../JavaScript/accessibility.js"></script>
 </body>
 </html> 
